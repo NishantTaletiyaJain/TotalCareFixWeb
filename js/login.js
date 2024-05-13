@@ -15,7 +15,6 @@ const parseTokenFromUrl = () => {
     const urlParams = new URLSearchParams(window.location.hash.substring(1));
     return urlParams.get('id_token');
 }
-
 const fetchUserInfo = (idToken) => {
     const decodedToken = parseJwt(idToken);
     const email = decodedToken.email;
@@ -31,7 +30,50 @@ const fetchUserInfo = (idToken) => {
     console.log('Email:', email);
 
     console.log("session data", sessionStorage.getItem('name'));
+
+    // Define the URL to send the POST request to
+    const url = 'http://34.242.206.146:8080/login/auth'; // Replace 'https://example.com/userInfo' with your actual endpoint URL
+
+    // Define the request body
+    const body = JSON.stringify({ email: email });
+
+    // Define request options
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: body
+    };
+
+    // Send the POST request using fetch
+    fetch(url, requestOptions)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle the response data
+            console.log('Response:', data);
+            if (data.email == null) {
+                console.log("call registration page");
+                loadRegisterform();
+            }
+            else {
+                sessionStorage.setItem('token', data.token);
+                console.log("user session token set:- ",sessionStorage.getItem('token'));
+            }
+
+
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('Error:', error);
+        });
 }
+
 
 
 const parseJwt = (token) => {
