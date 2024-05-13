@@ -231,3 +231,97 @@ footer p {
         font-size: 0.7em;
     }
 }
+
+
+
+/* |--------drop down for user and technician--------| */
+
+.registerclass {
+    padding: 20px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    max-width: 600px;
+}
+
+.registerclass h1 {
+    margin-bottom: 20px;
+}
+
+.registerclass label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.registerclass select, .registerclass button {
+    margin-bottom: 10px;
+}
+
+.registerclass button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.registerclass button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Form styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .container {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 576px) {
+    input[type="text"],
+    select {
+        font-size: 14px;
+    }
+}
