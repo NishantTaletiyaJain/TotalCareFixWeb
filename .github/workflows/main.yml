@@ -20,7 +20,7 @@ jobs:
  
       - name: Deploy Frontend
         run: |
-          scp -i id_rsa.pem -r ../../ ec2-user@34.242.206.146:/var/www/html/
+          scp -i ./id_rsa.pem -r ../../ ec2-user@34.242.206.146:/var/www/html/
  
           # Create Nginx configuration for frontend
           echo "
