@@ -21,6 +21,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "." # Use the current directory (repository root) as the source
           target: "/web" # Path on the EC2 instance to deploy the files
+          debug: true # Enable debug mode
 
       - name: SSH into EC2 and run script
         uses: appleboy/ssh-action@master
