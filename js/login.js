@@ -1,7 +1,7 @@
 
 const loadLogin = () => {
     const clientId = '1004581828869-dgt1j8h4qe36f4lg72ci5rjhgsm8400m.apps.googleusercontent.com'; // Replace with your actual client ID
-    const redirectUri = 'http://localhost:5500/index.html'; // Replace with your actual redirect URI
+    const redirectUri = 'http://34.242.206.146:8080/index.html'; // Replace with your actual redirect URI
     const scope = 'email profile openid';
 
     // Construct Google OAuth URL with OpenID Connect for ID token
