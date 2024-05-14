@@ -1,48 +1,33 @@
-name: Deploy Frontend to EC2
- 
+name: Deploy to EC2
+
 on:
   push:
     branches:
       - main
- 
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
- 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
  
-      - name: Install Nginx
-        run: |
-          sudo apt update
-          sudo apt install -y nginx
- 
-      - name: Deploy Frontend
-        run: |
-          scp -i ${{secrets.SSH_PRIVATE_KEY}} -r * ec2-user@34.242.206.146:/var/www/html/
- 
-          # Create Nginx configuration for frontend
-          echo "
-          server {
-              listen 80;
-              server_name 34.242.206.146.com;  # Replace with your domain or public IP address
- 
-              root /var/www/html;  # Path to your frontend files
- 
-              index index.html;
- 
-              location / {
-                  try_files $uri $uri/ /index.html;
-              }
-          }
-          " | sudo tee /etc/nginx/sites-available/frontend.conf
- 
-          # Enable the Nginx configuration for frontend
-          sudo ln -s /etc/nginx/sites-available/frontend.conf /etc/nginx/sites-enabled/
- 
-          # Remove default Nginx configuration if needed
-          sudo rm /etc/nginx/sites-enabled/default
- 
-          # Restart Nginx to apply changes
-          sudo systemctl restart nginx
+      - name: Delete old project
+        uses: appleboy/ssh-action@master
+        with:
+          host: 34.242.206.146
+          username: ec2-user
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo rm -r TotalCareFixWeb &
+            echo "Old repo deleted."
+      - name: Cloning repo to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: 34.242.206.146
+          username: ec2-user
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            git clone https://github.com/NishantTaletiyaJain/TotalCareFixWeb.git
+            cd TotalCareFixWeb
+            http-server
