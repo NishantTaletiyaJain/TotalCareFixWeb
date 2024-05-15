@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
- 
+
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
@@ -22,5 +22,5 @@ jobs:
             rm -rf TotalCareFixWeb
             git clone https://github.com/NishantTaletiyaJain/TotalCareFixWeb.git
             cd TotalCareFixWeb
-            http-server
-            echo "Old repo deleted."
+            nohup http-server &
+            echo "Server started."
