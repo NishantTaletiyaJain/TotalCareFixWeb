@@ -2,7 +2,7 @@ function loadYourBooking() {
     var yourBookingSection = document.getElementById('content');
     var email = sessionStorage.getItem('email');
     console.log(sessionStorage.getItem('token'));
-    // Fetch data from the API
+    
     fetch(`http://34.242.206.146:8080/showbooking/${email}`, {
         method: 'GET',
         headers: {
@@ -29,7 +29,7 @@ function loadYourBooking() {
                             <th>Action</th>
                         </tr>`;
         
-        // Loop through each booking and create table rows
+        
         data.forEach(booking => {
             yourBookingContent += `
                 <tr>
@@ -47,7 +47,7 @@ function loadYourBooking() {
                 </div>
             </section>`;
         
-        // Set the content of the section
+        
         yourBookingSection.innerHTML = yourBookingContent;
     })
     .catch(error => console.error('Error loading booking data:', error));
@@ -68,11 +68,11 @@ function cancelBooking(bookingId) {
             throw new Error('Failed to cancel booking');
         }
         console.log('Booking canceled successfully');
-        // Optionally, you can reload the list of bookings after cancellation
+        
         loadYourBooking();
     })
     .catch(error => {
         console.error('Error canceling booking:', error);
-        // Handle errors here, such as displaying an error message to the user
+        
     });
 }

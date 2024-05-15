@@ -22,5 +22,4 @@ jobs:
             rm -rf TotalCareFixWeb
             git clone https://github.com/NishantTaletiyaJain/TotalCareFixWeb.git
             cd TotalCareFixWeb
-            nohup http-server &
-            echo "Server started."
+            http-server -p 8081

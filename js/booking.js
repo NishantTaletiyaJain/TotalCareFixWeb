@@ -17,11 +17,11 @@ function loadBooking() {
 </section>`;
     mainSection.innerHTML = bookingContent;
 
-    // Fetch data from the API and populate the dropdown
+
     fetch('http://34.242.206.146:8080/skills/getAllUserStatus', {
-        method: 'GET', // Change to GET
+        method: 'GET',
         headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}` // Retrieve token from session storage
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
     })
         .then(response => response.json())
@@ -35,27 +35,47 @@ function loadBooking() {
 
 }
 const makeBooking = (event) => {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
 
-    // Get form input values
+
     const selectedSkill = document.querySelector('.skills').value;
     const serviceDate = document.querySelector('.serviceDate').value;
     let expectedTime = document.querySelector('.expectedTime').value;
     const problemDescription = document.querySelector('.problemDescription').value;
 
-    // Convert the time to the desired format
+
+    if (selectedSkill === '0') {
+        alert('Please select a skill.');
+        return;
+    }
+
+
+    const today = new Date().toISOString().split('T')[0];
+    if (serviceDate === '' || serviceDate < today) {
+        alert('Please select a valid future service date.');
+        return;
+    }
+
+
+    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+    if (expectedTime === '' || expectedTime < currentTime) {
+        alert('Please select a valid future expected time.');
+        return;
+    }
+
+
+    if (problemDescription.trim() === '') {
+        alert('Please enter a problem description.');
+        return;
+    }
+
+
     const timeParts = expectedTime.split(':');
     const hours = parseInt(timeParts[0], 10);
     const minutes = parseInt(timeParts[1], 10);
     const formattedTime = new Date(0, 0, 0, hours, minutes).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
 
-    // Log the form input values to the console
-    console.log("Selected Skill:", selectedSkill);
-    console.log("Service Date:", serviceDate);
-    console.log("Expected Time:", formattedTime);
-    console.log("Problem Description:", problemDescription);
 
-    // Define the request body
     const requestData = {
         email: sessionStorage.getItem('email'),
         skill: selectedSkill,
@@ -64,7 +84,7 @@ const makeBooking = (event) => {
         message: problemDescription
     };
 
-    // Send POST request to the API endpoint
+
     fetch('http://34.242.206.146:8080/userbooking', {
         method: 'POST',
         headers: {
@@ -80,13 +100,13 @@ const makeBooking = (event) => {
             return response.json();
         })
         .then(data => {
-            // Optionally, you can perform further actions after successful booking
+
             console.log('Booking made successfully:', data);
-            // Do not reload the booking form after making the booking
-            // Instead, you can display a success message or perform any other action you desire
+
+
         })
         .catch(error => {
             console.error('Error making booking:', error);
-            // Handle errors here, such as displaying an error message to the user
+
         });
 }

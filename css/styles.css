@@ -3,7 +3,7 @@
     margin: 0;
 }
 
-/* -----------------HEADER------------------------- */
+
 
 header {
     background-color: rgb(218, 215, 215);
@@ -14,7 +14,7 @@ header {
     color: black;
 }
 
-/* -----------------NAVBAR------------------------- */
+
 nav ul {
     padding: .3rem 0;
     list-style-type: none;
@@ -37,148 +37,145 @@ ul li a {
     cursor: pointer;
 }
 
-/* -----------------BOOKING FORM------------------------- */
-/* Styling for the booking form container */
-/* Styling for the booking form container */
+
 #content #booking {
     background-color: #f0f0f0;
     display: flex;
     justify-content: center;
-    padding: 2%; /* Add padding for better appearance */
+    padding: 2%;
 }
 
-/* Styling for the booking form */
 #booking form {
     display: flex;
     flex-direction: column;
-    width: 70%; /* Set the width of the form */
+    width: 70%; 
 }
 
-/* Styling for form labels */
+
 #booking form label {
-    margin-bottom: 0.5em; /* Add some spacing between labels and inputs */
-    font-weight: bold; /* Make labels bold */
+    margin-bottom: 0.5em; 
+    font-weight: bold; 
 }
 
-/* Styling for select element */
+
 #bookingForm select.skills {
-    width: 100%; /* Make select fill the width of the form */
-    padding: 1em; /* Add padding for better appearance */
-    margin-bottom: 1.5em; /* Add some spacing between inputs */
-    border: 0.1em solid #ccc; /* Add border to select */
-    border-radius: 0.4em; /* Add border radius for rounded corners */
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
-    appearance: none; /* Remove default select styling */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23212121'%3E%3Cpath d='M15.1 7.3l-5.6 5.6-5.6-5.6c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z'/%3E%3C/svg%3E"); /* Add custom arrow icon */
+    width: 100%; 
+    padding: 1em; 
+    margin-bottom: 1.5em; 
+    border: 0.1em solid #ccc; 
+    border-radius: 0.4em; 
+    box-sizing: border-box; 
+    appearance: none; 
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23212121'%3E%3Cpath d='M15.1 7.3l-5.6 5.6-5.6-5.6c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z'/%3E%3C/svg%3E"); 
     background-repeat: no-repeat;
-    background-position: right 0.5em top 50%; /* Position the arrow icon */
-    background-size: 1em auto; /* Size the arrow icon */
-    cursor: pointer; /* Add pointer cursor */
+    background-position: right 0.5em top 50%; 
+    background-size: 1em auto; 
+    cursor: pointer; 
 }
 
-/* Styling for select element on hover */
+
 #bookingForm select.skills:hover {
-    border-color: #666; /* Change border color on hover */
+    border-color: #666; 
 }
 
-/* Styling for select element on focus */
+
 #bookingForm select.skills:focus {
-    border-color: #3498db; /* Change border color on focus */
-    outline: none; /* Remove default focus outline */
+    border-color: #3498db; 
+    outline: none; 
 }
 
-/* Styling for date input */
+
 #bookingForm input[type="date"].serviceDate {
-    width: 100%; /* Make input fill the width of the form */
-    padding: 1em; /* Add padding for better appearance */
-    margin-bottom: 1.5em; /* Add some spacing between inputs */
-    border: 0.1em solid #ccc; /* Add border to input */
-    border-radius: 0.4em; /* Add border radius for rounded corners */
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
-    appearance: none; /* Remove default styling */
-    background-color: white; /* Set background color */
-    cursor: pointer; /* Add pointer cursor */
+    width: 100%; 
+    padding: 1em; 
+    margin-bottom: 1.5em; 
+    border: 0.1em solid #ccc; 
+    border-radius: 0.4em; 
+    box-sizing: border-box; 
+    appearance: none; 
+    background-color: white; 
+    cursor: pointer; 
 }
 
-/* Styling for date input on hover */
+
 #bookingForm input[type="date"].serviceDate:hover {
-    border-color: #666; /* Change border color on hover */
+    border-color: #666; 
 }
 
-/* Styling for date input on focus */
+
 #bookingForm input[type="date"].serviceDate:focus {
-    border-color: #3498db; /* Change border color on focus */
-    outline: none; /* Remove default focus outline */
+    border-color: #3498db; 
+    outline: none; 
 }
 
 
-/* Styling for form inputs */
-/* Styling for form inputs */
+
+
 #booking form input[type="text"],
 #booking form input[type="time"] {
-    width: 100%; /* Make inputs fill the width of the form */
-    padding: 1em; /* Add padding for better appearance */
-    margin-bottom: 1.5em; /* Add some spacing between inputs */
-    border: 0.1em solid #ccc; /* Add border to inputs */
-    border-radius: 0.4em; /* Add border radius for rounded corners */
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    width: 100%; 
+    padding: 1em; 
+    margin-bottom: 1.5em; 
+    border: 0.1em solid #ccc; 
+    border-radius: 0.4em; 
+    box-sizing: border-box; 
 }
 
-/* Styling for textarea */
+
 #booking form textarea {
-    width: 100%; /* Make textarea fill the width of the form */
-    padding: 1em; /* Add padding for better appearance */
-    margin-bottom: 1.5em; /* Add some spacing between inputs */
-    border: 0.1em solid #ccc; /* Add border to textarea */
-    border-radius: 0.4em; /* Add border radius for rounded corners */
-    resize: vertical; /* Allow vertical resizing of the textarea */
-    min-height: 6em; /* Set minimum height for the textarea */
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    width: 100%; 
+    padding: 1em; 
+    margin-bottom: 1.5em; 
+    border: 0.1em solid #ccc; 
+    border-radius: 0.4em; 
+    resize: vertical; 
+    min-height: 6em; 
+    box-sizing: border-box; 
 }
 
 
-/* Styling for the submit button */
+
 #booking form button[type="submit"] {
-    background-color: #4caf50; /* Green background color for the button */
-    color: white; /* White text color for the button */
-    padding: 1.2em 2em; /* Add padding for better appearance */
-    border: none; /* Remove border */
-    border-radius: 0.4em; /* Add border radius for rounded corners */
-    cursor: pointer; /* Add pointer cursor on hover */
+    background-color: #4caf50; 
+    color: white; 
+    padding: 1.2em 2em; 
+    border: none; 
+    border-radius: 0.4em; 
+    cursor: pointer; 
 }
 
-/* Styling for the submit button on hover */
+
 #booking form button[type="submit"]:hover {
-    background-color: #45a049; /* Darker green background color on hover */
+    background-color: #45a049; 
 }
 
-/* -----------------BOOKING FORM------------------------- */
 
-/* Styling for footer */
+
+
 footer {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: #333; /* Background color for the footer */
-    color: white; /* Text color for the footer */
-    text-align: center; /* Center-align text */
-    padding: 1.5rem 0; /* Add padding to top and bottom */
+    background-color: #333; 
+    color: white; 
+    text-align: center; 
+    padding: 1.5rem 0; 
 }
 
-/* Styling for footer text */
+
 footer p {
-    margin: 0; /* Remove default margin */
-    font-size: 14px; /* Adjust font size */
+    margin: 0; 
+    font-size: 14px; 
 }
 
 
 
-/* -----------------BOOKING FORM------------------------- */
+
 .booking-table {
     width: 100%;
     margin-top: 2%;
-    overflow-x: auto; /* Add horizontal scroll on small screens */
+    overflow-x: auto; 
 }
 
 .booking-table table {
@@ -234,7 +231,7 @@ footer p {
 
 
 
-/* |--------drop down for user and technician--------| */
+
 
 .registerclass {
     padding: 20px;
@@ -271,14 +268,6 @@ footer p {
 
 
 
-
-
-
-
-
-
-
-/* Form styles */
 .form-group {
     margin-bottom: 20px;
 }
@@ -312,7 +301,7 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* Responsive styles */
+
 @media (max-width: 768px) {
     .container {
         max-width: 90%;

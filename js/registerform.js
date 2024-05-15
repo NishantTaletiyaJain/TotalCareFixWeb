@@ -19,18 +19,18 @@ function loadRegisterform() {
 function registerUserForm() {
     var userRegisterSection = document.getElementById('register');
 
-    // Fetch cities from the API
+    
     fetch('http://34.242.206.146:8080/cities/getAllUserCities')
         .then(response => response.json())
         .then(data => {
-            var cityDropdownOptions = ''; // Initialize an empty string to store dropdown options
+            var cityDropdownOptions = ''; 
 
-            // Iterate through the fetched cities and create dropdown options
+            
             data.forEach(city => {
                 cityDropdownOptions += `<option value="${city.name}">${city.name}</option>`;
             });
 
-            // Create the user registration form content with the populated city dropdown
+            
             var registerContent = `
                 <h1>User Registration</h1>
                 <form id="userRegistrationForm" onsubmit="submitUserRegistration(event)">
@@ -69,12 +69,12 @@ function registerUserForm() {
                 </form>
             `;
 
-            // Set the user registration form content in the userRegisterSection
+            
             userRegisterSection.innerHTML = registerContent;
         })
         .catch(error => {
             console.error('Error fetching cities:', error);
-            // If an error occurs during fetching, you can set a default form or display an error message
+            
         });
 }
 
@@ -99,9 +99,9 @@ function submitRegistration() {
     }
 }
 function submitUserRegistration(event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault(); 
     
-    // Get form data
+    
     var houseNo = document.getElementById('houseNo').value;
     var street = document.getElementById('street').value;
     var society = document.getElementById('society').value;
@@ -113,7 +113,7 @@ function submitUserRegistration(event) {
     var name = sessionStorage.getItem('name');
     var skill='none';
     var role='User'
-    // Prepare the data object to send in the request body
+    
     var requestData = {
         houseNo: houseNo,
         street: street,
@@ -128,7 +128,7 @@ function submitUserRegistration(event) {
         skill: skill
     };
 
-    // Send POST request to the API endpoint
+    
     fetch('http://34.242.206.146:8080/register?email=' + email, {
         method: 'POST',
         headers: {
@@ -143,13 +143,14 @@ function submitUserRegistration(event) {
         return response.json();
     })
     .then(data => {
-        // Optionally, you can perform further actions after successful registration
+        
         console.log('User registered successfully:', data);
-        // Redirect to the home page
-        loadHome();
+        
+        loadLogin();
+        
     })
     .catch(error => {
         console.error('Error registering user:', error);
-        // Handle errors here, such as displaying an error message to the user
+        
     });
 }
