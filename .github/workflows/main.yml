@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
  
-      - name: Delete old project
+      - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
           host: 34.242.206.146
@@ -20,17 +20,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             rm -rf TotalCareFixWeb
-            echo "Old repo deleted."
-
-      - name: Cloning repo to EC2
-        uses: appleboy/scp-action@master
-        with:
-          host: 34.242.206.146
-          username: ec2-user
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            ls TotalCareFixWeb
             git clone https://github.com/NishantTaletiyaJain/TotalCareFixWeb.git
             cd TotalCareFixWeb
             http-server
-
+            echo "Old repo deleted."
