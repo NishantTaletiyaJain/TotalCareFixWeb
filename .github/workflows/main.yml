@@ -17,7 +17,7 @@ jobs:
         with:
           host: 34.242.206.146
           username: ec2-user
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
             rm -rf TotalCareFixWeb
             echo "Old repo deleted."
@@ -27,7 +27,7 @@ jobs:
         with:
           host: 34.242.206.146
           username: ec2-user
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
             git clone https://github.com/NishantTaletiyaJain/TotalCareFixWeb.git
             cd TotalCareFixWeb
