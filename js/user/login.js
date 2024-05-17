@@ -11,6 +11,7 @@ const parseTokenFromUrl = () => {
     const urlParams = new URLSearchParams(window.location.hash.substring(1));
     return urlParams.get('id_token');
 }
+
 const fetchUserInfo = (idToken) => {
     const decodedToken = parseJwt(idToken);
     const email = decodedToken.email;
@@ -18,16 +19,14 @@ const fetchUserInfo = (idToken) => {
        
     sessionStorage.setItem('email', email);
     sessionStorage.setItem('name', name);
-    const url = 'http://localhost:8080/login/auth'; 
+    const url = 'localhost:8080/verify';
 
-    
     const body = JSON.stringify({ email: email });
 
-    
     const requestOptions = {
-        method: 'POST',
+        method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         },
         body: body
     };

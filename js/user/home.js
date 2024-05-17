@@ -5,7 +5,7 @@ function loadHome() {
     console.log('home load');
     var homeContent = `
         <section id="home" class="content">
-            <img src="./images/banner.jpg" width="100%" height="20%" />
+            <img src="./images/userbanner.jpg" width="100%" height="100%" />
             
         </section>
     `;
