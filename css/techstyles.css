@@ -1,0 +1,91 @@
+html {
+  font-size: 1rem; /* 1rem is equal to the default font size of 16px */
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem; /* 1rem = 16px, can be adjusted for overall scaling */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Navbar styles */
+/* Navbar styles */
+.navbar {
+  background-color: #007bff; /* Primary color */
+  color: rgba(255, 255, 255, 0.105); /* Text color */
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between; /* Adjusted for commercial navbar */
+  align-items: center;
+  padding: 1rem; /* Use rem units */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
+}
+
+.navbar a {
+  color: rgb(6, 13, 25); /* Link color */
+  text-decoration: none;
+  background-color: aquamarine;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #f8f9fa; /* Hover color */
+}
+
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar .nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .nav-links a:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.navbar button {
+  color: white;
+  text-align: center;
+  padding: 1rem 2rem; /* Use rem units */
+  text-decoration: none;
+  font-size: 1rem; /* Use rem units */
+  border: none;
+  cursor: pointer;
+}
+
+/* Booking container styles */
+.booking-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); /* Adjust grid to be responsive */
+  gap: 1rem; /* Use rem units */
+  padding: 1rem; /* Use rem units */
+}
+
+.booking-item {
+  border: 0.1rem solid #ccc; /* Use rem units */
+  padding: 1rem; /* Use rem units */
+}
+
+/* Content styles */
+.content {
+  padding: 2rem; /* Use rem units */
+}
+
+#logoutContent {
+  text-align: center;
+  padding: 2rem; /* Use rem units */
+}
+
+h2 {
+  font-size: 2rem; /* Use rem units */
+}
+
+p {
+  font-size: 1rem; /* Use rem units */
+}
