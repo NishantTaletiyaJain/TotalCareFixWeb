@@ -22,4 +22,4 @@ jobs:
             rm -rf TotalCareFixWeb
             git clone https://github.com/NishantTaletiyaJain/TotalCareFixWeb.git
             cd TotalCareFixWeb
-            http-server -p 8081
+            http-server -p 5500
