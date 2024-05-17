@@ -32,7 +32,7 @@ const fetchUserInfo = (idToken) => {
     
 
     
-    const url = 'http://34.242.206.146:8080/login/auth'; 
+    const url = 'https://totalcarefix.projects.bbdgrad.com/api/login/auth'; 
 
     
     const body = JSON.stringify({ email: email });

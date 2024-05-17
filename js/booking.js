@@ -18,7 +18,7 @@ function loadBooking() {
     mainSection.innerHTML = bookingContent;
 
 
-    fetch('http://34.242.206.146:8080/skills/getAllUserStatus', {
+    fetch('https://totalcarefix.projects.bbdgrad.com/api/skills/getAllUserStatus', {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -85,7 +85,7 @@ const makeBooking = (event) => {
     };
 
 
-    fetch('http://34.242.206.146:8080/userbooking', {
+    fetch('https://totalcarefix.projects.bbdgrad.com/api/userbooking', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

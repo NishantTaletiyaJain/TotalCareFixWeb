@@ -20,7 +20,7 @@ function registerUserForm() {
     var userRegisterSection = document.getElementById('register');
 
     
-    fetch('http://34.242.206.146:8080/cities/getAllUserCities')
+    fetch('https://totalcarefix.projects.bbdgrad.com/api/cities/getAllUserCities')
         .then(response => response.json())
         .then(data => {
             var cityDropdownOptions = ''; 
@@ -129,7 +129,7 @@ function submitUserRegistration(event) {
     };
 
     
-    fetch('http://34.242.206.146:8080/register?email=' + email, {
+    fetch('https://totalcarefix.projects.bbdgrad.com/api/register?email=' + email, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

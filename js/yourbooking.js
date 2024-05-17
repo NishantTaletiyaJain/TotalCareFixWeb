@@ -3,7 +3,7 @@ function loadYourBooking() {
     var email = sessionStorage.getItem('email');
     console.log(sessionStorage.getItem('token'));
     
-    fetch(`http://34.242.206.146:8080/showbooking/${email}`, {
+    fetch(`https://totalcarefix.projects.bbdgrad.com/api/showbooking/${email}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -54,7 +54,7 @@ function loadYourBooking() {
 }
 function cancelBooking(bookingId) {
     const token = sessionStorage.getItem('token');
-    const url = `http://34.242.206.146:8080/cancel/${bookingId}`;
+    const url = `https://totalcarefix.projects.bbdgrad.com/api/cancel/${bookingId}`;
 
     fetch(url, {
         method: 'POST',
