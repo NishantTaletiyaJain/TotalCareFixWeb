@@ -1,7 +1,7 @@
 
 const loadLogin = () => {
     const clientId = '1004581828869-dgt1j8h4qe36f4lg72ci5rjhgsm8400m.apps.googleusercontent.com'; 
-    const redirectUri = 'http://34.242.206.146:8081/index.html'; 
+    const redirectUri = 'https://totalcarefix.projects.bbdgrad.com/web/'; 
     const scope = 'email profile openid';
 
     
