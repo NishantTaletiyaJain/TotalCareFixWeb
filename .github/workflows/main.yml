@@ -22,4 +22,5 @@ jobs:
             rm -rf TotalCareFixWeb
             git clone https://github.com/NishantTaletiyaJain/TotalCareFixWeb.git
             cd TotalCareFixWeb
-            http-server -p 5500
+            sudo kill -9 $(sudo lsof -t -i:5500)
+            nohup http-server -p 5500  > output.log 2>&1 &
