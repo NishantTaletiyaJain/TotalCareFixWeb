@@ -6,9 +6,8 @@ function loadUserNav() {
     <ul>
         <li><a onclick="loadHome()">Home</a></li>
         <li><a onclick="loadBooking()">Booking</a></li>
-        <li><a onclick="loadYourBooking()">Your Booking</a></li>
-        <li><a onclick="logout()">Login With Google</a></li>
-        <li><a onclick="loadTechDashboard()">Technician</a></li>
+        <li><a onclick="loadYourBooking()">SeeBooking</a></li>
+        <li><a onclick="logout()">Login</a></li>
     </ul>
     
     `;

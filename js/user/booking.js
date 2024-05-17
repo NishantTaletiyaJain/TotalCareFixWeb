@@ -21,7 +21,7 @@ function loadBooking() {
     fetch('http://localhost:8080/skills/getAllUserStatus', {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            'Authorization': `Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImEzYjc2MmY4NzFjZGIzYmFlMDA0NGM2NDk2MjJmYzEzOTZlZGEzZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMDA0NTgxODI4ODY5LWRndDFqOGg0cWUzNmY0bGc3MmNpNXJqaGdzbTg0MDBtLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMTAwNDU4MTgyODg2OS1kZ3QxajhoNHFlMzZmNGxnNzJjaTVyamhnc204NDAwbS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMDY2ODU2MTQ1NzU3OTgxNDUxMiIsImVtYWlsIjoic2F3ZGluZXNocmFqMTFAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5vbmNlIjoiMTIzIiwibmJmIjoxNzE1OTM5MDQ5LCJuYW1lIjoiRGluZXNoIEt1bWFyIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0xvOEE4bmJYTjRiYkR3b1RJeFpsWVFpSlc0VEdyajBNeVV6ZDBLMk9rcmg2OHFGMkk9czk2LWMiLCJnaXZlbl9uYW1lIjoiRGluZXNoIiwiZmFtaWx5X25hbWUiOiJLdW1hciIsImlhdCI6MTcxNTkzOTM0OSwiZXhwIjoxNzE1OTQyOTQ5LCJqdGkiOiJhNjdmYzZmZDgwZGMyYTNlZTdhNTY1Njc2OGU3YTE4ZDMxMjNlMmY0In0.bwRzQOuC-A5h-eq2pYHmzVMczRm6MgSMdCrmo1Ldxq3h_NfbooELQcRbJZPeEO0K3eTFfo8FF1kXZFTbtoAbHZyeY0oZdMYFYi5zRTpgyzUXozXN4ltso3gmb1_N5zGPMEmLf3LfF86KAtNAGnA1ba0sfTw92KkTVojU-2Jp09mnV3NJDuaomI-ruH7iCqIlrzH36OTjijG1UE7xkUQuEwpmQRSG2yGDN2LPgDELeqMvya1smGltMgN239jlegBvECjsECaK39fSTqixbyZmFcUoBp8RnhBR511-2UdyDeBmTBplwu6e7n-ubw16DhEm8Z6LlUcpw6_NbHAQ_gbUpA`
         }
     })
         .then(response => response.json())
@@ -30,9 +30,6 @@ function loadBooking() {
             selectSkills.innerHTML = data.map(skill => `<option value="${skill.skill_id}">${skill.name}</option>`).join('');
         })
         .catch(error => console.error('Error fetching data:', error));
-
-
-
 }
 const makeBooking = (event) => {
     event.preventDefault();
