@@ -3,31 +3,44 @@ function loadHome() {
     mainSection.innerHTML = '';
     console.log('home load');
 
+    // Create the container for the image
+    var container = document.createElement('div');
+    container.className = 'home-container';
+
     // Create the image element
     var img = document.createElement('img');
-    img.src = './images/userbanner.jpg';
+    img.src = './images/userbanner.png';
     img.className = 'home-image';  // Add a class to the image element
 
-    // Append the image to the main section
-    mainSection.appendChild(img);
+    // Append the image to the container
+    container.appendChild(img);
 
-    // Create a style element
+    var displayType=document.createElement('h1');
+    displayType.textContent="this all service provide";
+    displayType.className="service-display";
+
+    container.appendChild(displayType);
+
+    // Append the container to the main section
+    mainSection.appendChild(container);
+
+    // Create a style element for basic image styling
     var style = document.createElement('style');
-    style.type = 'text/css';
     var css = `
+        .home-container {
+            width: 100%;
+            height: 100%;
+        }
+
         .home-image {
             width: 100%;
             height: 100%;
-            opacity: 0.5; /* Decrease the opacity */
+            object-fit: cover; /* Ensure the image covers the container */
         }
     `;
 
-    // Add the CSS to the style element
-    if (style.styleSheet) {
-        style.styleSheet.cssText = css;  // For IE
-    } else {
-        style.appendChild(document.createTextNode(css));  // For other browsers
-    }
+    style.appendChild(document.createTextNode(css));  // For other browsers
+
 
     // Append the style element to the document head
     document.head.appendChild(style);
