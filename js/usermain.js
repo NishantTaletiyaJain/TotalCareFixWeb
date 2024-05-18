@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // loadLanding()
-    loadHeader()
-    loadUserNav()
-    loadHome()
+    loadLanding()
+    // loadHeader()
+    // loadUserNav()
+    // loadHome()
 });
