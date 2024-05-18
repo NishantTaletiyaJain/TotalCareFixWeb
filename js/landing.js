@@ -105,7 +105,7 @@ function loadLanding() {
 
     var technicianButton = document.createElement('button');
     technicianButton.textContent = 'Technician Dashboard';
-    technicianButton.onclick=createSinglePageApp;
+    technicianButton.onclick=techDashBoard;
     overlayDiv.appendChild(technicianButton);
 
     // Append overlayDiv to section

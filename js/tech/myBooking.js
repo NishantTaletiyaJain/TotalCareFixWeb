@@ -6,25 +6,34 @@ function displayMyBookingList(bookings = []) {
         myBookingContent.innerHTML = `<h2>My Booking List</h2>`;
         
         bookings.forEach((booking, index) => {
+            console.log("i am displaybook");
             const bookingItem = document.createElement("div");
-            bookingItem.classList.add("booking-item");
+            bookingItem.classList.add("booking-item1");
+            
 
-            const bookingId = document.createElement("p");
-            bookingId.textContent = "ID: " + booking.id;
+            const bookingBookingId = document.createElement("p");
+            bookingBookingId.textContent = "BookingId: " + booking.BookingId;
 
-            const bookingName = document.createElement("p");
-            bookingName.textContent = "Name: " + booking.name;
+            const bookingAddress = document.createElement("p");
+            bookingAddress.textContent = "Address: " + booking.Address;
 
-            const bookingPrice = document.createElement("p");
-            bookingPrice.textContent = "Price: " + booking.price;
+            const bookingservice = document.createElement("p");
+            bookingservice.textContent = "service: " + booking.service;
+
+            const bookingMobile = document.createElement("p");
+            bookingMobile.textContent = "mobileNuber: " + booking.mobileNumber;
 
             const cancelButton = document.createElement("button");
+            cancelButton.classList.add("cancel-button1"); // Adding another CSS class
+
             cancelButton.textContent = "Cancel";
             cancelButton.addEventListener("click", () => cancelBooking(index));
 
-            bookingItem.appendChild(bookingId);
-            bookingItem.appendChild(bookingName);
-            bookingItem.appendChild(bookingPrice);
+            bookingItem.appendChild(bookingBookingId);
+            bookingItem.appendChild(bookingAddress);
+            bookingItem.appendChild(bookingservice);
+            bookingItem.appendChild(bookingMobile);
+
             bookingItem.appendChild(cancelButton);
 
             myBookingContent.appendChild(bookingItem);
@@ -38,3 +47,12 @@ function cancelBooking(index) {
     myBookings.splice(index, 1); // Remove the booking from the array
     displayMyBookingList(myBookings); // Refresh the display
 }
+
+
+function showMyBooking() {
+    displayMyBookingList(myBookings); // Pass the updated myBookings array
+}
+
+
+
+
