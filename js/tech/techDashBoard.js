@@ -1,0 +1,4 @@
+function techDashBoard(){
+    techNavbar()
+    techHome()
+}

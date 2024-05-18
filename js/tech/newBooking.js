@@ -2,14 +2,14 @@
 
 let myBookings = []; // Globally accessible array to store confirmed bookings
 let bookings = [ // Globally accessible array to store new bookings
-    { id: 1, name: "Booking 1", price: 100 },
-    { id: 2, name: "Booking 2", price: 200 },
-    { id: 3, name: "Booking 3", price: 300 },
-    { id: 4, name: "Booking 4", price: 400 },
-    { id: 2, name: "Booking 2", price: 200 },
-    { id: 3, name: "Booking 3", price: 300 },
-    { id: 4, name: "Booking 4", price: 400 },
-    { id: 5, name: "Booking 5", price: 500 }
+    { BookingId: 1, Address: "Booking 1,Booking 1,Booking 1,Booking 1,Booking 1", service: 100, mobileNumber: "12345678" },
+    { BookingId: 2, Address: "Booking 2,Booking 2,Booking 2,Booking 2,Booking 2", service: 200 ,mobileNumber: "12345678"},
+    { BookingId: 3, Address: "Booking 3,Booking 3,Booking 3,Booking 3,Booking 3", service: 300 ,mobileNumber: "12345678"},
+    { BookingId: 4, Address: "Booking 4,Booking 4,Booking 4,Booking 4,Booking 4", service: 400 ,mobileNumber: "12345678"},
+    { BookingId: 2, Address: "Booking 3,Booking 3,Booking 3,Booking 3,Booking 3", service: 200 ,mobileNumber: "12345678"},
+    { BookingId: 3, Address: "Booking 3,Booking 3,Booking 3,Booking 3,Booking 3", service: 300 ,mobileNumber: "12345678"},
+    { BookingId: 4, Address: "Booking 3,Booking 3,Booking 3,Booking 3,Booking 3", service: 400 ,mobileNumber: "12345678"},
+    { BookingId: 5, Address: "Booking 3,Booking 3,Booking 3,Booking 3,Booking 3", service: 500 ,mobileNumber: "12345678"}
 ];
 
 function displayNewBookingList() {
@@ -23,22 +23,26 @@ function displayNewBookingList() {
         const bookingItem = document.createElement("div");
         bookingItem.classList.add("booking-item");
 
-        const bookingId = document.createElement("p");
-        bookingId.textContent = "ID: " + booking.id;
+        const bookingBookingId = document.createElement("p");
+        bookingBookingId.textContent = "BookingId: " + booking.BookingId;
 
-        const bookingName = document.createElement("p");
-        bookingName.textContent = "Name: " + booking.name;
+        const bookingAddress = document.createElement("p");
+        bookingAddress.textContent = "Address: " + booking.Address;
 
-        const bookingPrice = document.createElement("p");
-        bookingPrice.textContent = "Price: " + booking.price;
+        const bookingservice = document.createElement("p");
+        bookingservice.textContent = "service: " + booking.service;
+
+        const bookingMobile = document.createElement("p");
+        bookingMobile.textContent = "mobileNuber: " + booking.mobileNumber;
 
         const confirmButton = document.createElement("button");
         confirmButton.textContent = "Confirm";
         confirmButton.addEventListener("click", () => confirmBooking(index));
 
-        bookingItem.appendChild(bookingId);
-        bookingItem.appendChild(bookingName);
-        bookingItem.appendChild(bookingPrice);
+        bookingItem.appendChild(bookingBookingId);
+        bookingItem.appendChild(bookingAddress);
+        bookingItem.appendChild(bookingservice);
+        bookingItem.appendChild(bookingMobile);
         bookingItem.appendChild(confirmButton);
 
         bookingContainer.appendChild(bookingItem);
@@ -49,7 +53,7 @@ function displayNewBookingList() {
 
 function confirmBooking(index) {
     const booking = bookings.splice(index, 1)[0]; // Remove booking from new bookings and get the booking object
-    alert("Booking confirmed with ID: " + booking.id);
+    alert("Booking confirmed with ID: " + booking.BookingId);
     addToMyBookings(booking);
     displayNewBookingList(); // Refresh the new booking list
 }
@@ -59,53 +63,11 @@ function addToMyBookings(booking) {
     displayMyBookingList(myBookings);
 }
 
-function displayMyBookingList(bookings = []) {
-    console.log("Displaying My Booking List");
-    const myBookingContent = document.getElementById("content");
-    if (myBookingContent) {
-        myBookingContent.innerHTML = `<h2>My Booking List</h2>`;
-        
-        bookings.forEach((booking, index) => {
-            const bookingItem = document.createElement("div");
-            bookingItem.classList.add("booking-item");
-
-            const bookingId = document.createElement("p");
-            bookingId.textContent = "ID: " + booking.id;
-
-            const bookingName = document.createElement("p");
-            bookingName.textContent = "Name: " + booking.name;
-
-            const bookingPrice = document.createElement("p");
-            bookingPrice.textContent = "Price: " + booking.price;
-
-            const cancelButton = document.createElement("button");
-            cancelButton.textContent = "Cancel";
-            cancelButton.addEventListener("click", () => cancelBooking(index));
-
-            bookingItem.appendChild(bookingId);
-            bookingItem.appendChild(bookingName);
-            bookingItem.appendChild(bookingPrice);
-            bookingItem.appendChild(cancelButton);
-
-            myBookingContent.appendChild(bookingItem);
-        });
-    } else {
-        console.error("Element with id 'content' not found");
-    }
-}
-
-function cancelBooking(index) {
-    myBookings.splice(index, 1); // Remove the booking from the array
-    displayMyBookingList(myBookings); // Refresh the display
-}
-
 function showNewBooking() {
     displayNewBookingList();
 }
 
-function showMyBooking() {
-    displayMyBookingList(myBookings); // Pass the updated myBookings array
-}
+// logout
 
 function logOut() {
     document.getElementById("content").innerHTML = `<div id="logoutContent">
@@ -113,6 +75,5 @@ function logOut() {
         <p>You have been logged out.</p>
     </div>`;
 }
-
 
 

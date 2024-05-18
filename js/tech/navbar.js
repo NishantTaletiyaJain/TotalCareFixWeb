@@ -1,15 +1,13 @@
 
-function showNewBooking() {
-    displayNewBookingList();
-}
-
-function showMyBooking() {
-    displayMyBookingList(myBookings); // Pass the updated myBookings array
-}
-
-function logOut() {
-    document.getElementById("content").innerHTML = `<div id="logoutContent">
-        <h2>Logged Out</h2>
-        <p>You have been logged out.</p>
-    </div>`;
+function techNavbar(){
+ const navbar = document.getElementById('navbar');
+    navbar.innerHTML = `
+    <ul>
+        <li><a onclick="techHome()">Home</a></li>
+        <li><a onclick="showNewBooking()">New Booking</a></li>
+        <li><a onclick="showMyBooking()">My Booking</a></li>
+        <li><a onclick="logout()">Log out</a></li>
+    </ul>
+    
+    `;
 }
