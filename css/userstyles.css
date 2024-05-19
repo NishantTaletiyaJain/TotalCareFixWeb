@@ -148,68 +148,6 @@ footer {
     padding: 1.5rem 0;
 }
 
-.booking-table {
-    width: 100%;
-    margin-top: 2%;
-    overflow-x: auto;
-}
-
-.booking-table table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.booking-table th,
-.booking-table td {
-    border: 0.1em solid #ddd;
-    padding: 1em;
-    text-align: left;
-    font-size: 0.9em;
-}
-
-.booking-table th {
-    background-color: #f2f2f2;
-}
-
-.booking-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.booking-table tr:hover {
-    background-color: #ddd;
-}
-
-.booking-table button {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 0.5em 1em;
-    border-radius: 0.3em;
-    cursor: pointer;
-}
-
-.booking-table button:hover {
-    background-color: #d32f2f;
-}
-
-@media screen and (max-width: 600px) {
-
-    .booking-table th,
-    .booking-table td {
-        padding: 0.5em;
-        font-size: 0.8em;
-    }
-}
-
-@media screen and (max-width: 320px) {
-
-    .booking-table th,
-    .booking-table td {
-        padding: 0.3em;
-        font-size: 0.7em;
-    }
-}
-
 
 
 
@@ -281,31 +219,147 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+/* editpopupcss */
 
-@media (max-width: 768px) {
-    .container {
-        max-width: 90%;
-    }
+/* Overlay styles */
+#popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
 
-@media (max-width: 576px) {
-
-    input[type="text"],
-    select {
-        font-size: 14px;
-    }
+/* Container styles */
+#popupContainer {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
 }
 
+/* Form styles */
+#editBookingForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
 
-/* // yourbooking */
-
-.cancel-button1{
-    background-color: red;
-    color: white;
-    padding: 0.625rem; /* 10px to 0.625rem */
-    border: none;
-    border-radius: 0.3125rem; /* 5px to 0.3125rem */
-    cursor: pointer;
+#editBookingForm label {
+    margin-top: 10px;
     font-weight: bold;
-    font-size: 0.875rem; /* 14px to 0.875rem */
+}
+
+#editBookingForm input,
+#editBookingForm textarea {
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#editBookingForm textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+#editBookingForm button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+    font-size: 16px;
+}
+
+#editBookingForm button:hover {
+    background-color: #0056b3;
+}
+
+/* Close popup when clicking outside the container */
+#popupOverlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/* feedback popup */
+
+/* Overlay styles */
+#popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Container styles */
+#popupContainer {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Form styles */
+#feedbackForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#feedbackForm label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#feedbackForm textarea {
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 80px;
+}
+
+#feedbackForm button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+    font-size: 16px;
+}
+
+#feedbackForm button:hover {
+    background-color: #0056b3;
 }

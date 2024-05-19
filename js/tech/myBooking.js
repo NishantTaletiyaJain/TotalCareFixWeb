@@ -1,6 +1,6 @@
 function showMyBooking() {
     const email = sessionStorage.getItem('emailtech'); // Use the correct email or fetch from sessionStorage if needed
-    fetch(`http://localhost:8080/tech/myorder/${email}`, {
+    fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/myorder/${email}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
@@ -69,7 +69,7 @@ function displayMyBookingList(bookings) {
 }
 
 function cancelBookingTech(bookingId) {
-    fetch(`http://localhost:8080/tech/cancel/${bookingId}`, {
+    fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/cancel/${bookingId}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
@@ -78,7 +78,7 @@ function cancelBookingTech(bookingId) {
     .then(response => response.json())
     .then(data => {
         if (data) {
-            alert("Booking canceled successfully");
+            showPopup("Booking canceled successfully");
             showMyBooking();
         } else {
             console.error('Failed to cancel booking:', data.message);

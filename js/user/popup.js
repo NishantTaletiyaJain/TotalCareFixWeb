@@ -1,5 +1,4 @@
 function showPopup(message) {
-    console.log('hello');
     // Create the popup overlay
     var popupOverlay = document.createElement('div');
     popupOverlay.id = 'popupOverlay';

@@ -1,7 +1,7 @@
 // Function to fetch bookings from the API and display
 function showNewBooking() {
     const email = sessionStorage.getItem('emailtech'); // Use the correct email or fetch from sessionStorage if needed
-    fetch(`http://localhost:8080/tech/serviceorder/${email}`, {
+    fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/serviceorder/${email}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
@@ -43,6 +43,9 @@ function displayBookingList(bookings) {
         const bookingService = document.createElement("p");
         bookingService.textContent = "Service: " + formatDateTime(booking.serviceDate, booking.expectedTime);
 
+        const message = document.createElement("p");
+        bookingService.textContent = "Message: " + booking.message;
+
         const bookingMobile = document.createElement("p");
         bookingMobile.textContent = "Mobile Number: " + booking.mobileNumber;
 
@@ -53,6 +56,7 @@ function displayBookingList(bookings) {
         bookingItem.appendChild(bookingBookingId);
         bookingItem.appendChild(bookingAddress);
         bookingItem.appendChild(bookingService);
+        bookingItem.appendChild(message);
         bookingItem.appendChild(bookingMobile);
         bookingItem.appendChild(confirmButton);
 
@@ -66,7 +70,7 @@ function displayBookingList(bookings) {
 function confirmBooking(id) {
     const email = sessionStorage.getItem('emailtech');
     
-    fetch(`http://localhost:8080/tech/confirm/${id}/${email}`, {
+    fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/confirm/${id}/${email}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
@@ -75,7 +79,7 @@ function confirmBooking(id) {
     .then(response => response.json())
     .then(data => {
         if (data && data.bookingId) {
-            alert("Booking confirmed with ID: " + data.bookingId);
+            showPopup("Booking confirmed with ID: " + data.bookingId);
             showNewBooking();
         } else {
             console.error('Invalid response from server:', data);

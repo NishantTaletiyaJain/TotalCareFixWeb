@@ -1,264 +1,116 @@
-// function loadYourBooking() {
-//     // showPopup('This is a simple popup message!');
-//     var yourBookingSection = document.getElementById('content');
-//     var email = sessionStorage.getItem('email');
-//     console.log(sessionStorage.getItem('token'));
-
-//     fetch(`http://localhost:8080/showbooking/${email}`, {
-//         method: 'GET',
-//         headers: {
-//             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-//         }
-//     })
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error('Failed to fetch booking data');
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-//             var yourBookingContent = `
-//             <section id="yourbooking" class="content">
-//                 <div class="booking-table">
-//                     <table>
-//                         <tr>
-//                             <th>Booking ID</th>
-//                             <th>Message</th>
-//                             <th>Date</th>
-//                             <th>Time</th>
-//                             <th>Status</th>
-//                             <th>Action</th>
-//                         </tr>`;
-
-
-//             data.forEach(booking => {
-//                 yourBookingContent += `
-//                 <tr>
-//                     <td>${booking.bookingId}</td>
-//                     <td>${booking.message}</td>
-//                     <td>${new Date(booking.date).toLocaleDateString()}</td>
-//                     <td>${booking.time}</td>
-//                     <td>${booking.status}</td>
-//                     <td><button onclick="cancelBooking(${booking.bookingId})">Cancel</button></td>
-//                 </tr>`;
-//             });
-
-//             yourBookingContent += `
-//                     </table>
-//                 </div>
-//             </section>`;
-
-
-//             yourBookingSection.innerHTML = yourBookingContent;
-//         })
-//         .catch(error => console.error('Error loading booking data:', error));
-// }
-// function cancelBooking(bookingId) {
-//     const token = sessionStorage.getItem('token');
-//     const url = `http://localhost:8080/cancel/${bookingId}`;
-
-//     fetch(url, {
-//         method: 'POST',
-//         headers: {
-//             'Authorization': `Bearer ${token}`,
-//             'Content-Type': 'application/json'
-//         }
-//     })
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error('Failed to cancel booking');
-//             }
-//             console.log('Booking canceled successfully');
-
-//             loadYourBooking();
-//         })
-//         .catch(error => {
-//             console.error('Error canceling booking:', error);
-
-//         });
-// }
-
-
-
-// function loadYourBooking() {
-//     var yourBookingSection = document.getElementById('content');
-//     var email = sessionStorage.getItem('email');
-//     console.log(sessionStorage.getItem('token'));
-
-//     fetch(`http://localhost:8080/showbooking/${email}`, {
-//         method: 'GET',
-//         headers: {
-//             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-//         }
-//     })
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error('Failed to fetch booking data');
-//         }
-//         return response.json();
-//     })
-//     .then(data => {
-//         var section = document.createElement('section');
-//         section.id = 'yourbooking';
-//         section.className = 'content';
-
-//         var bookingContainer = document.createElement('div');
-//         bookingContainer.className = 'booking-container';
-
-//         // Booking rows
-//         data.forEach(booking => {
-//             var bookingRow = document.createElement('div');
-//             bookingRow.className = 'booking-row';
-
-//             // Adjusted order of booking information
-//             ['bookingId', 'message', 'date', 'time', 'status'].forEach(field => {
-//                 var bookingCell = document.createElement('div');
-//                 bookingCell.className = 'booking-cell';
-//                 bookingCell.textContent = booking[field];
-//                 bookingRow.appendChild(bookingCell);
-//             });
-
-//             var actionDiv = document.createElement('div');
-//             actionDiv.className = 'booking-cell';
-//             var cancelButton = document.createElement('button');
-//             cancelButton.textContent = 'Cancel';
-//             cancelButton.onclick = function() {
-//                 cancelBooking(booking.bookingId);
-//             };
-//             actionDiv.appendChild(cancelButton);
-//             bookingRow.appendChild(actionDiv);
-
-//             bookingContainer.appendChild(bookingRow);
-//         });
-
-//         section.appendChild(bookingContainer);
-//         yourBookingSection.innerHTML = '';
-//         yourBookingSection.appendChild(section);
-//     })
-//     .catch(error => console.error('Error loading booking data:', error));
-// }
-
-// function cancelBooking(bookingId) {
-//     const token = sessionStorage.getItem('token');
-//     const url = `http://localhost:8080/cancel/${bookingId}`;
-
-//     fetch(url, {
-//         method: 'POST',
-//         headers: {
-//             'Authorization': `Bearer ${token}`,
-//             'Content-Type': 'application/json'
-//         }
-//     })
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error('Failed to cancel booking');
-//         }
-//         console.log('Booking canceled successfully');
-//         loadYourBooking();
-//     })
-//     .catch(error => {
-//         console.error('Error canceling booking:', error);
-//     });
-// }
-
-
-
-
-
 function loadYourBooking() {
-    var yourBookingSection = document.getElementById('content');
-    var email = sessionStorage.getItem('email');
-    console.log(sessionStorage.getItem('token'));
+    if (sessionStorage.getItem('email') == null) {
+        showPopup('Please login first');
+    } else {
+        var yourBookingSection = document.getElementById('content');
+        var email = sessionStorage.getItem('email');
+        console.log(sessionStorage.getItem('token'));
 
-    fetch(`http://localhost:8080/showbooking/${email}`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch booking data');
-        }
-        return response.json();
-    })
-    .then(data => {
-        yourBookingSection.innerHTML = '';
+        fetch(`https://totalcarefix.projects.bbdgrad.com/api/showbooking/${email}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch booking data');
+                }
+                return response.json();
+            })
+            .then(data => {
+                yourBookingSection.innerHTML = '';
 
-        var section = document.createElement('section');
-        section.id = 'yourbooking';
-        section.className = 'content';
+                var section = document.createElement('section');
+                section.id = 'yourbooking';
+                section.className = 'content';
 
-        var bookingContainer = document.createElement('div');
-        bookingContainer.className = 'booking-container';
+                var bookingContainer = document.createElement('div');
+                bookingContainer.className = 'booking-container';
 
-        // Header row
-        var headerRow = document.createElement('div');
-        headerRow.className = 'booking-row header-row';
-        
-        ['Booking ID', 'Message', 'Date', 'Time', 'Status', 'Action'].forEach(header => {
-            var headerDiv = document.createElement('div');
-            headerDiv.className = 'booking-header';
-            headerDiv.textContent = header;
-            headerRow.appendChild(headerDiv);
-        });
+                // Booking cards
+                data.forEach(booking => {
+                    var bookingItem = document.createElement('div');
+                    bookingItem.className = 'booking-item';
 
-        bookingContainer.appendChild(headerRow);
+                    var bookingIdP = document.createElement('p');
+                    bookingIdP.textContent = "Booking ID: " + booking.bookingId;
+                    bookingItem.appendChild(bookingIdP);
 
-        // Booking rows
-        data.forEach(booking => {
-            var bookingRow = document.createElement('div');
-            bookingRow.className = 'booking-row';
+                    var messageP = document.createElement('p');
+                    messageP.textContent = "Message: " + booking.message;
+                    bookingItem.appendChild(messageP);
 
-            var bookingIdDiv = document.createElement('div');
-            bookingIdDiv.className = 'booking-cell';
-            bookingIdDiv.textContent = booking.bookingId;
-            bookingRow.appendChild(bookingIdDiv);
+                    var dateP = document.createElement('p');
+                    dateP.textContent = "Date: " + new Date(booking.date).toLocaleDateString();
+                    bookingItem.appendChild(dateP);
 
-            var messageDiv = document.createElement('div');
-            messageDiv.className = 'booking-cell';
-            messageDiv.textContent = booking.message;
-            bookingRow.appendChild(messageDiv);
+                    var timeP = document.createElement('p');
+                    timeP.textContent = "Time: " + booking.time;
+                    bookingItem.appendChild(timeP);
 
-            var dateDiv = document.createElement('div');
-            dateDiv.className = 'booking-cell';
-            dateDiv.textContent = new Date(booking.date).toLocaleDateString();
-            bookingRow.appendChild(dateDiv);
+                    var statusP = document.createElement('p');
+                    statusP.textContent = "Status: " + booking.status;
+                    bookingItem.appendChild(statusP);
 
-            var timeDiv = document.createElement('div');
-            timeDiv.className = 'booking-cell';
-            timeDiv.textContent = booking.time;
-            bookingRow.appendChild(timeDiv);
+                    var actionDiv = document.createElement('div');
 
-            var statusDiv = document.createElement('div');
-            statusDiv.className = 'booking-cell';
-            statusDiv.textContent = booking.status;
-            bookingRow.appendChild(statusDiv);
+                    if (booking.status != 'Completed' && booking.status != 'Cancelled') {
 
-            var actionDiv = document.createElement('div');
-            actionDiv.className = 'booking-cell';
-            var cancelButton = document.createElement('button');
-            cancelButton.classList.add("cancel-button1");
+                        if (booking.status != 'booked') {
+                            var cancelButton = document.createElement('button');
+                            cancelButton.classList.add('cancel-button1');
+                            cancelButton.textContent = 'Cancel';
+                            cancelButton.onclick = function () {
+                                cancelBooking(booking.bookingId);
+                            };
+                            actionDiv.appendChild(cancelButton);
+                            
+                            var editButton = document.createElement('button');
+                            editButton.classList.add('edit-button');
+                            editButton.textContent = 'Edit';
+                            editButton.onclick = function () {
+                                editShowPopup('Update your Booking details',booking.bookingId);
+                            };
+                            actionDiv.appendChild(editButton);
+                        }
 
-            cancelButton.textContent = 'Cancel';
-            cancelButton.onclick = function() {
-                cancelBooking(booking.bookingId);
-            };
-            actionDiv.appendChild(cancelButton);
-            bookingRow.appendChild(actionDiv);
+                        if (booking.status != 'appointment') {
 
-            bookingContainer.appendChild(bookingRow);
-        });
+                            var completeButton = document.createElement('button');
+                            completeButton.classList.add('complete-button');
+                            completeButton.textContent = 'Complete';
+                            completeButton.onclick = function () {
+                                completeBooking(booking.bookingId);
+                            };
+                            actionDiv.appendChild(completeButton);
 
-        section.appendChild(bookingContainer);
-        yourBookingSection.appendChild(section);
-    })
-    .catch(error => console.error('Error loading booking data:', error));
+                        }
+                    }
+                    if (booking.status == 'Completed') {
+                        var feedbackButton = document.createElement('button');
+                        feedbackButton.classList.add('feedback-button');
+                        feedbackButton.textContent = 'Feedback';
+                        feedbackButton.onclick = function () {
+                            showFeedbackPopup(booking.bookingId);
+                        };
+                        actionDiv.appendChild(feedbackButton);
+                    }
+
+                    bookingItem.appendChild(actionDiv);
+                    bookingContainer.appendChild(bookingItem);
+                });
+
+                section.appendChild(bookingContainer);
+                yourBookingSection.appendChild(section);
+            })
+            .catch(error => console.error('Error loading booking data:', error));
+    }
 }
 
 function cancelBooking(bookingId) {
     const token = sessionStorage.getItem('token');
-    const url = `http://localhost:8080/cancel/${bookingId}`;
+    const url = `https://totalcarefix.projects.bbdgrad.com/api/cancel/${bookingId}`;
 
     fetch(url, {
         method: 'POST',
@@ -267,53 +119,119 @@ function cancelBooking(bookingId) {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to cancel booking');
-        }
-        console.log('Booking canceled successfully');
-        loadYourBooking();
-    })
-    .catch(error => {
-        console.error('Error canceling booking:', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                showPopup('Failed to cancel booking');
+            } else {
+                showPopup('Booking canceled successfully');
+                loadYourBooking();
+            }
+        })
+        .catch(error => {
+            console.error('Error canceling booking:', error);
+        });
 }
 
-// Add CSS for the tabular structure
+function completeBooking(bookingId) {
+    const token = sessionStorage.getItem('token');
+    const url = `https://totalcarefix.projects.bbdgrad.com/api/bookingcompleted/${bookingId}`;
+
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                showPopup('Failed to complete booking');
+            } else {
+                showPopup('Booking marked as completed');
+                loadYourBooking();
+            }
+        })
+        .catch(error => {
+            console.error('Error completing booking:', error);
+        });
+}
+
+// Add CSS for the cart-like structure and responsiveness
 var style = document.createElement('style');
 style.id = 'yourBookingStyle';
 var css = `
+    :root {
+      font-size: 1rem; /* Ensuring the root font size is defined for clarity */
+    }
+
+    /* Container for the bookings */
     .booking-container {
-        display: flex;
-        flex-direction: column;
+      display: grid;
+      gap: 1rem; /* Add gap between cards */
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+      padding: 1rem;
     }
 
-    .booking-row {
-        display: flex;
+    .booking-item {
+      padding: 1rem; /* More padding for a robust look */
+      border: 1px solid #ccc;
+      border-radius: 0.5rem; /* Slightly larger border radius */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Add subtle shadow */
+      background-color: #fff; /* White background for card look */
+      box-sizing: border-box;
+      transition: transform 0.2s; /* Smooth transform transition */
     }
 
-    .booking-header {
-        flex: 1;
-        font-weight: bold;
-        padding: 10px;
-        border-bottom: 2px solid #ccc;
-        background-color: #f9f9f9;
+    .booking-item:hover {
+      transform: scale(1.05); /* Slightly enlarge on hover */
     }
 
-    .booking-cell {
-        flex: 1;
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
+    .booking-item p {
+      margin: 0.5rem 0; /* More spacing between paragraphs */
     }
 
-    .header-row .booking-header {
-        border-bottom: 2px solid #000;
+    .booking-item button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 0.25rem; /* Rounded button corners */
+      padding: 0.5rem 1rem; /* Larger padding for buttons */
+      cursor: pointer;
+      transition: background-color 0.2s; /* Smooth background color transition */
+    }
+
+    .booking-item button:hover {
+      background-color: #0056b3; /* Darker blue on hover */
+    }
+
+    .cancel-button1 {
+      background-color: red;
+      color: white;
+      padding: 0.5rem 1rem; /* Consistent padding for buttons */
+      border: none;
+      border-radius: 0.25rem; /* Rounded button corners */
+      cursor: pointer;
+      transition: background-color 0.2s; /* Smooth background color transition */
+      margin-right: 10px; /* Add margin for spacing between buttons */
+    }
+
+    .cancel-button1:hover {
+      background-color: darkred; /* Darker red on hover */
+    }
+
+    .complete-button {
+      background-color: green;
+      color: white;
+      padding: 0.5rem 1rem; /* Consistent padding for buttons */
+      border: none;
+      border-radius: 0.25rem; /* Rounded button corners */
+      cursor: pointer;
+      transition: background-color 0.2s; /* Smooth background color transition */
+    }
+
+    .complete-button:hover {
+      background-color: darkgreen; /* Darker green on hover */
     }
 `;
 style.appendChild(document.createTextNode(css));
 document.head.appendChild(style);
-
-
-
-
-
