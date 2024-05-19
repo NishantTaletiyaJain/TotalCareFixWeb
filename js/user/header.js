@@ -19,7 +19,7 @@ function loadHeader() {
     // Now you can manipulate the header as needed
     var headerSection = document.getElementById('head');
     var headerContent = `
-        <h1 class="header-item">Total Care Fix.</h1>
+        <h1 class="header-item">Total Care Fix</h1>
     `;
     headerSection.innerHTML = headerContent;
 }
