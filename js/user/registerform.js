@@ -1,36 +1,20 @@
-function loadRegisterform() {
-    var registerSection = document.getElementById('body');
+function loadRegisterForm() {
+    var mainContent = document.getElementById('content');
+    mainContent.innerHTML = ''; // Clear any existing content
 
-    var registerContent = `
-        <section id="register" class="content registerclass">
-            <h1>Register</h1>
-            <label for="registrationType">Select Registration Type:</label>
-            <select id="registrationType"">
-                <option value="user">User</option>
-                <option value="technician">Technician</option>
-            </select>
-            <button onclick="submitRegistration()">Submit</button>
-        </section>
-    `;
-
-    registerSection.innerHTML = registerContent;
-}
-
-function registerUserForm() {
-    var userRegisterSection = document.getElementById('register');
-
-    
     fetch('http://localhost:8080/cities/getAllUserCities')
         .then(response => response.json())
         .then(data => {
-            var cityDropdownOptions = ''; 
+            var cityDropdownOptions = '';
 
-            
             data.forEach(city => {
                 cityDropdownOptions += `<option value="${city.name}">${city.name}</option>`;
             });
 
-            
+            var registerSection = document.createElement('section');
+            registerSection.id = 'register';
+            registerSection.className = 'content registerclass';
+
             var registerContent = `
                 <h1>User Registration</h1>
                 <form id="userRegistrationForm" onsubmit="submitUserRegistration(event)">
@@ -54,7 +38,7 @@ function registerUserForm() {
                         <label for="city">City:</label>
                         <select id="city" name="city" required>
                             <option value="">Select City</option>
-                            ${cityDropdownOptions} <!-- Insert the populated dropdown options here -->
+                            ${cityDropdownOptions}
                         </select>
                     </div>
                     <div class="form-group">
@@ -66,42 +50,28 @@ function registerUserForm() {
                         <input type="text" id="contactNo" name="contactNo" required>
                     </div>
                     <button type="submit">Submit</button>
+                    <button type="button" onclick="loadCancelRegister()">Cancel</button>
                 </form>
             `;
 
-            
-            userRegisterSection.innerHTML = registerContent;
+            registerSection.innerHTML = registerContent;
+            mainContent.appendChild(registerSection);
         })
         .catch(error => {
             console.error('Error fetching cities:', error);
-            
         });
 }
 
-function registerTechnicianForm() {
-    var technicianRegisterSection = document.getElementById('register');
-
-    var registerContent = `
-        <h1>Technician Registration</h1>
-        <!-- Technician registration form elements here -->
-    `;
-
-    technicianRegisterSection.innerHTML = registerContent;
-}
-
-function submitRegistration() {
-    var registrationType = document.getElementById('registrationType').value;
-
-    if (registrationType === 'user') {
-        registerUserForm();
-    } else if (registrationType === 'technician') {
-        registerTechnicianForm();
-    }
-}
 function submitUserRegistration(event) {
-    event.preventDefault(); 
-    
-    
+    event.preventDefault();
+
+    var urlParams = new URLSearchParams(window.location.hash.substring(1));
+    var idToken = urlParams.get('id_token');
+    var decodedToken = parseJwt(idToken);
+    var email = decodedToken.email;
+    var name = decodedToken.name;
+
+
     var houseNo = document.getElementById('houseNo').value;
     var street = document.getElementById('street').value;
     var society = document.getElementById('society').value;
@@ -109,11 +79,8 @@ function submitUserRegistration(event) {
     var city = document.getElementById('city').value;
     var pincode = document.getElementById('pincode').value;
     var contactNo = document.getElementById('contactNo').value;
-    var email = sessionStorage.getItem('email');
-    var name = sessionStorage.getItem('name');
-    var skill='none';
-    var role='User'
-    
+    var skill = 'none';
+    var role = 'User';
     var requestData = {
         houseNo: houseNo,
         street: street,
@@ -128,29 +95,31 @@ function submitUserRegistration(event) {
         skill: skill
     };
 
-    
-    fetch('http://localhost:8080/register?email=' + email, {
+    fetch('http://localhost:8080/register', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${idToken}`
         },
         body: JSON.stringify(requestData)
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to register user');
-        }
-        return response.json();
-    })
-    .then(data => {
-        
-        console.log('User registered successfully:', data);
-        
-        // loadLogin();
-        
-    })
-    .catch(error => {
-        console.error('Error registering user:', error);
-        
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to register user');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('User registered successfully:', data);
+            loadLoginUser();
+        })
+        .catch(error => {
+            console.error('Error registering user:', error);
+        });
+}
+
+function loadCancelRegister() {
+    const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
+    history.replaceState(null, null, url);
+    loadUserDashboard();
 }

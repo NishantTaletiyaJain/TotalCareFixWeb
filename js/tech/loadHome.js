@@ -1,11 +1,15 @@
-
-
 function techHome() {
+    const idToken = parseTokenFromUrl();
+    if (idToken) {
+        if (sessionStorage.getItem('tokentech') == null) {
+            fetchUserInfoTech(idToken);
+        }
+    }
     var mainSection = document.getElementById('content');
-    let NumberOfService = 5;
-    let Rating = 4.2;
+    let NumberOfService = 5; // Placeholder for now, will fetch later
     mainSection.innerHTML = '';
-    console.log('home load');
+    console.log('home load tech');
+    
     var homeContent = `
         <section id="home" class="content">
             <div class="row">
@@ -15,7 +19,7 @@ function techHome() {
                 </div>
                 <div class="container">
                     <h2>Your Rating</h2>
-                    <p class="details">Rating: <span class="highlight">${Rating}</span></p>
+                    <p class="details">Rating: <span class="highlight" id="rating">Loading...</span></p>
                 </div>
             </div>
         </section>
@@ -55,5 +59,25 @@ function techHome() {
         }
     `;
     document.head.appendChild(style);
-}
 
+    const email = sessionStorage.getItem('emailtech');
+
+    // Fetch the rating
+    fetch(`http://localhost:8080/tech/rating/${email}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        
+            document.getElementById('rating').innerText = data;
+        
+    })
+    .catch(error => {
+        console.error('Error fetching rating:', error);
+        document.getElementById('rating').innerText = 'Error';
+    });
+}

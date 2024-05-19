@@ -1,6 +1,13 @@
 function loadLanding() {
-    // Create style element
+    // Clear existing styles related to home page
+    var existingStyle = document.getElementById('homeStyle');
+    if (existingStyle) {
+        existingStyle.remove();
+    }
+
+    // Create and append style element for landing page
     var style = document.createElement('style');
+    style.id = 'landingStyle'; // Assign an ID for future reference/removal
     style.textContent = `
         html, body {
             margin: 0;
@@ -73,45 +80,37 @@ function loadLanding() {
             }
         }
     `;
-    // Append style element to head
-    var landingSection = document.getElementById('content');
-    landingSection.innerHTML=''
     document.head.appendChild(style);
 
-    // Create section element
+    // Clear and populate landing section
+    var landingSection = document.getElementById('content');
+    landingSection.innerHTML = '';
+
     var section = document.createElement('section');
     section.id = 'landing';
     section.className = 'content';
 
-    // Create overlay div
     var overlayDiv = document.createElement('div');
     overlayDiv.className = 'overlay';
 
-    // Create h1 element for title
     var title = document.createElement('h1');
     title.textContent = 'Welcome to TotalCareFix';
     overlayDiv.appendChild(title);
 
-    // Create p element for description
     var description = document.createElement('p');
     description.textContent = 'Your Trusted Destination for Home Appliance Solutions';
     overlayDiv.appendChild(description);
 
-    // Create button elements
     var userButton = document.createElement('button');
     userButton.textContent = 'User Dashboard';
-    userButton.onclick = loadUserDashboard; // Assign the function directly
+    userButton.onclick = loadUserDashboard;
     overlayDiv.appendChild(userButton);
 
     var technicianButton = document.createElement('button');
     technicianButton.textContent = 'Technician Dashboard';
-    technicianButton.onclick=techDashBoard;
+    technicianButton.onclick = loadLoginTech;
     overlayDiv.appendChild(technicianButton);
 
-    // Append overlayDiv to section
     section.appendChild(overlayDiv);
-
-    // Append section to landingSection
-    var landingSection = document.getElementById('content');
     landingSection.appendChild(section);
 }

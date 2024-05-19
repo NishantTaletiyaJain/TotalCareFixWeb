@@ -6,7 +6,7 @@ function techNavbar(){
         <li><a onclick="techHome()">Home</a></li>
         <li><a onclick="showNewBooking()">New Booking</a></li>
         <li><a onclick="showMyBooking()">My Booking</a></li>
-        <li><a onclick="logout()">Log out</a></li>
+        <li><a onclick="logOutTech()">Logout</a></li>
     </ul>
     
     `;

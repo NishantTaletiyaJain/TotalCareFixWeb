@@ -1,31 +1,42 @@
 function loadHome() {
+    const idToken = parseTokenFromUrl();
+    if (idToken) {
+        if (sessionStorage.getItem('token') == null) {
+            fetchUserInfo(idToken);
+        }
+    }
+    // Clear existing styles related to landing page
+    var existingStyle = document.getElementById('landingStyle');
+    if (existingStyle) {
+        existingStyle.remove();
+    }
+
     var mainSection = document.getElementById('content');
     mainSection.innerHTML = '';
     console.log('home load');
 
-    // Create the container for the image
+    // Create container for the image
     var container = document.createElement('div');
     container.className = 'home-container';
 
-    // Create the image element
+    // Create image element
     var img = document.createElement('img');
     img.src = './images/userbanner.png';
-    img.className = 'home-image';  // Add a class to the image element
+    img.className = 'home-image';
 
-    // Append the image to the container
     container.appendChild(img);
 
-    var displayType=document.createElement('h1');
-    displayType.textContent="this all service provide";
-    displayType.className="service-display";
+    var displayType = document.createElement('h1');
+    displayType.textContent = "This is all services provided";
+    displayType.className = "service-display";
 
     container.appendChild(displayType);
 
-    // Append the container to the main section
     mainSection.appendChild(container);
 
-    // Create a style element for basic image styling
+    // Create and append style element for home page
     var style = document.createElement('style');
+    style.id = 'homeStyle'; // Assign an ID for future reference/removal
     var css = `
         .home-container {
             width: 100%;
@@ -38,10 +49,7 @@ function loadHome() {
             object-fit: cover; /* Ensure the image covers the container */
         }
     `;
+    style.appendChild(document.createTextNode(css));
 
-    style.appendChild(document.createTextNode(css));  // For other browsers
-
-
-    // Append the style element to the document head
     document.head.appendChild(style);
 }

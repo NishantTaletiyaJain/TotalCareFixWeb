@@ -1,22 +1,23 @@
 function loadYourBooking() {
+    // showPopup('This is a simple popup message!');
     var yourBookingSection = document.getElementById('content');
     var email = sessionStorage.getItem('email');
     console.log(sessionStorage.getItem('token'));
-    
+
     fetch(`http://localhost:8080/showbooking/${email}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch booking data');
-        }
-        return response.json();
-    })
-    .then(data => {
-        var yourBookingContent = `
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch booking data');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var yourBookingContent = `
             <section id="yourbooking" class="content">
                 <div class="booking-table">
                     <table>
@@ -28,10 +29,10 @@ function loadYourBooking() {
                             <th>Status</th>
                             <th>Action</th>
                         </tr>`;
-        
-        
-        data.forEach(booking => {
-            yourBookingContent += `
+
+
+            data.forEach(booking => {
+                yourBookingContent += `
                 <tr>
                     <td>${booking.bookingId}</td>
                     <td>${booking.message}</td>
@@ -40,17 +41,17 @@ function loadYourBooking() {
                     <td>${booking.status}</td>
                     <td><button onclick="cancelBooking(${booking.bookingId})">Cancel</button></td>
                 </tr>`;
-        });
-        
-        yourBookingContent += `
+            });
+
+            yourBookingContent += `
                     </table>
                 </div>
             </section>`;
-        
-        
-        yourBookingSection.innerHTML = yourBookingContent;
-    })
-    .catch(error => console.error('Error loading booking data:', error));
+
+
+            yourBookingSection.innerHTML = yourBookingContent;
+        })
+        .catch(error => console.error('Error loading booking data:', error));
 }
 function cancelBooking(bookingId) {
     const token = sessionStorage.getItem('token');
@@ -63,16 +64,16 @@ function cancelBooking(bookingId) {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to cancel booking');
-        }
-        console.log('Booking canceled successfully');
-        
-        loadYourBooking();
-    })
-    .catch(error => {
-        console.error('Error canceling booking:', error);
-        
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to cancel booking');
+            }
+            console.log('Booking canceled successfully');
+
+            loadYourBooking();
+        })
+        .catch(error => {
+            console.error('Error canceling booking:', error);
+
+        });
 }

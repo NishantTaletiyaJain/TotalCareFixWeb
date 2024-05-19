@@ -27,7 +27,7 @@ function displayMyBookingList(bookings = []) {
             cancelButton.classList.add("cancel-button1"); // Adding another CSS class
 
             cancelButton.textContent = "Cancel";
-            cancelButton.addEventListener("click", () => cancelBooking(index));
+            cancelButton.addEventListener("click", () => cancelBookingTech(index));
 
             bookingItem.appendChild(bookingBookingId);
             bookingItem.appendChild(bookingAddress);
@@ -43,7 +43,7 @@ function displayMyBookingList(bookings = []) {
     }
 }
 
-function cancelBooking(index) {
+function cancelBookingTech(index) {
     myBookings.splice(index, 1); // Remove the booking from the array
     displayMyBookingList(myBookings); // Refresh the display
 }
