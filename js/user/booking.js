@@ -94,8 +94,12 @@ const makeBooking = (event) => {
         })
         .then(data => {
             console.log('Booking made successfully:', data);
+            loadYourBooking();
         })
         .catch(error => {
             console.error('Error making booking:', error);
         });
+
+        loadYourBooking();
 };
+
