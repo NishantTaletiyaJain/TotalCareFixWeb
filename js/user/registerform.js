@@ -1,5 +1,5 @@
 function loadRegisterform() {
-    var registerSection = document.getElementById('body');
+    var registerSection = document.getElementById('content');
 
     var registerContent = `
         <section id="register" class="content registerclass">
@@ -18,7 +18,6 @@ function loadRegisterform() {
 
 
 
-
 function submitRegistration() {
     var registrationType = document.getElementById('registrationType').value;
 
@@ -27,7 +26,7 @@ function submitRegistration() {
         registerFormUser();
     } else if (registrationType === 'technician') {
         console.log(registrationType);
-        registerTechnicianForm();
+        loadRegisterFormTech();
     }
 }
 

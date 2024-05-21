@@ -110,7 +110,9 @@ function loadYourBooking() {
         .finally(() => {
             loader.style.display = 'none';
         });
+
     }
+    
 }
 
 function cancelBooking(bookingId) {
