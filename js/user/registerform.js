@@ -110,7 +110,7 @@ function submitUserRegistration(event) {
             return response.json();
         })
         .then(data => {
-            console.log('User registered successfully:', data);
+            showPopup('User registered successfully:', data);
             loadLoginUser();
         })
         .catch(error => {

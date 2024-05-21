@@ -83,7 +83,6 @@ function submitTechRegistration(event) {
     var pincode = document.getElementById('pincode').value;
     var contactNo = document.getElementById('contactNo').value;
     var skill = document.getElementById('skill').value;
-    console.log(skill);
     var role = 'Technician';
     var requestData = {
         houseNo: houseNo,
@@ -114,7 +113,7 @@ function submitTechRegistration(event) {
             return response.json();
         })
         .then(data => {
-            console.log('User registered successfully:', data);
+            showPopup('User registered successfully:', data);
             loadLoginTech();
         })
         .catch(error => {

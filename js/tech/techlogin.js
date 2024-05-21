@@ -22,23 +22,21 @@ const fetchUserInfoTech = (idToken) => {
         })
         .then(data => {
             if (data.email == null) {
-                console.log("need to register.");
+                showPopup("need to register.");
                 loadRegisterFormTech();
             } else if (data.role == 'User') {
-                console.log("You are already registered as a user.");
+                showPopup("You are already registered as a user.");
                 const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
                 history.replaceState(null, null, url);
                 loadLanding();
             } else {
-                console.log("success.");
+                showPopup("success.");
 
                 sessionStorage.setItem('emailtech', data.email);
                 sessionStorage.setItem('nametech', name);
                 sessionStorage.setItem('tokentech', idToken);
-                console.log(idToken);
                 const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
                 history.replaceState(null, null, url);
-                console.log(idToken);
                 techDashBoard();
             }
         })

@@ -6,20 +6,18 @@ function techHome() {
         }
     }
     var mainSection = document.getElementById('content');
-    let NumberOfService = 5; // Placeholder for now, will fetch later
     mainSection.innerHTML = '';
-    console.log('home load tech');
-    
+
     var homeContent = `
         <section id="home" class="content">
             <div class="row">
                 <div class="container">
-                    <h2>Service Details</h2>
-                    <p class="details">Today's Services: <span class="highlight">${NumberOfService}</span></p>
-                </div>
-                <div class="container">
                     <h2>Your Rating</h2>
                     <p class="details">Rating: <span class="highlight" id="rating">Loading...</span></p>
+                </div>
+                <div class="container">
+                    <h2>Completed Tasks</h2>
+                    <p class="details">Tasks Completed: <span class="highlight" id="completed-tasks">Loading...</span></p>
                 </div>
             </div>
         </section>
@@ -71,13 +69,26 @@ function techHome() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
-        
-            document.getElementById('rating').innerText = data;
-        
+        document.getElementById('rating').innerText = data;
     })
     .catch(error => {
         console.error('Error fetching rating:', error);
         document.getElementById('rating').innerText = 'Error';
+    });
+
+    // Fetch the number of completed tasks
+    fetch(`http://localhost:8080/tech/taskcompleted/${email}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('completed-tasks').innerText = data;
+    })
+    .catch(error => {
+        console.error('Error fetching completed tasks:', error);
+        document.getElementById('completed-tasks').innerText = 'Error';
     });
 }

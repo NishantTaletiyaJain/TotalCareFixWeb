@@ -36,17 +36,19 @@ const fetchUserInfo = (idToken) => {
         })
         .then(data => {
             if (data.email == null) {
+                showPopup('Please registration first.')
+
                 loadRegisterForm();
             } else if (data.role == 'Technician') {
-                console.log("You are already registered as a technician.");
                 const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
                 history.replaceState(null, null, url);
+                showPopup('You are already registered as a technician.')
                 loadUserDashboard();
             } else {
                 sessionStorage.setItem('email', data.email);
                 sessionStorage.setItem('name', name);
                 sessionStorage.setItem('token', idToken);
-                console.log(idToken);
+                showPopup('Login successfully')
                 loadUserDashboard();
             }
         })

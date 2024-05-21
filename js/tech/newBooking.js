@@ -1,31 +1,8 @@
-// Function to fetch bookings from the API and display
-function showNewBooking() {
-    const email = sessionStorage.getItem('emailtech'); // Use the correct email or fetch from sessionStorage if needed
-    fetch(`http://localhost:8080/tech/serviceorder/${email}`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data && data.length > 0) {
-            displayBookingList(data);
-        } else {
-            const newBookingContent = document.getElementById("content");
-            newBookingContent.innerHTML = "<h2>No new booking requests</h2>";
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching bookings:', error);
-        // Display error message or handle error as needed
-    });
-}
-
 // Function to display the booking list
 function displayBookingList(bookings) {
+    console.log('coming inside the new booking');
     const newBookingContent = document.getElementById("content");
-    newBookingContent.innerHTML = `<h2>New Booking List</h2>`;
+    newBookingContent.innerHTML = `<h2>New Service request</h2>`;
     
     const bookingContainer = document.createElement("div");
     bookingContainer.classList.add("booking-container");
@@ -43,6 +20,9 @@ function displayBookingList(bookings) {
         const bookingService = document.createElement("p");
         bookingService.textContent = "Service: " + formatDateTime(booking.serviceDate, booking.expectedTime);
 
+        const message = document.createElement("p");
+        bookingService.textContent = "Message: " + booking.message;
+
         const bookingMobile = document.createElement("p");
         bookingMobile.textContent = "Mobile Number: " + booking.mobileNumber;
 
@@ -53,6 +33,7 @@ function displayBookingList(bookings) {
         bookingItem.appendChild(bookingBookingId);
         bookingItem.appendChild(bookingAddress);
         bookingItem.appendChild(bookingService);
+        bookingItem.appendChild(message);
         bookingItem.appendChild(bookingMobile);
         bookingItem.appendChild(confirmButton);
 
@@ -62,6 +43,30 @@ function displayBookingList(bookings) {
     newBookingContent.appendChild(bookingContainer);
 }
 
+
+// Function to fetch bookings from the API and display
+function showNewBooking() {
+    const email = sessionStorage.getItem('emailtech'); // Use the correct email or fetch from sessionStorage if needed
+    fetch(`http://localhost:8080/tech/serviceorder/${email}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data && data.length > 0) {
+            displayBookingList(data);
+        } else {
+            const newBookingContent = document.getElementById("content");
+            newBookingContent.innerHTML = "<h2>No New Service requests</h2>";
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching bookings:', error);
+        // Display error message or handle error as needed
+    });
+}
 // Function to confirm a booking
 function confirmBooking(id) {
     const email = sessionStorage.getItem('emailtech');
@@ -75,7 +80,7 @@ function confirmBooking(id) {
     .then(response => response.json())
     .then(data => {
         if (data && data.bookingId) {
-            alert("Booking confirmed with ID: " + data.bookingId);
+            showPopup("Booking confirmed with ID: " + data.bookingId);
             showNewBooking();
         } else {
             console.error('Invalid response from server:', data);

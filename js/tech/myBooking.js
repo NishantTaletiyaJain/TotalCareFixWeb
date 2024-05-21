@@ -78,7 +78,7 @@ function cancelBookingTech(bookingId) {
     .then(response => response.json())
     .then(data => {
         if (data) {
-            alert("Booking canceled successfully");
+            showPopup("Booking canceled successfully");
             showMyBooking();
         } else {
             console.error('Failed to cancel booking:', data.message);
