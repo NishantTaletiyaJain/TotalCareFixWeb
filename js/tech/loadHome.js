@@ -13,7 +13,7 @@ function techHome() {
             <div class="row">
                 <div class="container">
                     <h2>Your Rating</h2>
-                    <p class="details">Rating test: <span class="highlight" id="rating">Loading...</span></p>
+                    <p class="details">Rating: <span class="highlight" id="rating">Loading...</span></p>
                 </div>
                 <div class="container">
                     <h2>Completed Tasks</h2>
