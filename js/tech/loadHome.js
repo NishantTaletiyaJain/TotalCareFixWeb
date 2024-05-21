@@ -1,10 +1,5 @@
 function techHome() {
-    const idToken = parseTokenFromUrl();
-    if (idToken) {
-        if (sessionStorage.getItem('tokentech') == null) {
-            fetchUserInfoTech(idToken);
-        }
-    }
+    
     var mainSection = document.getElementById('content');
     mainSection.innerHTML = '';
 
@@ -58,13 +53,13 @@ function techHome() {
     `;
     document.head.appendChild(style);
 
-    const email = sessionStorage.getItem('emailtech');
+    const email = sessionStorage.getItem('email');
 
     // Fetch the rating
     fetch(`http://localhost:8080/tech/rating/${email}`, {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
     })
     .then(response => response.json())
@@ -80,7 +75,7 @@ function techHome() {
     fetch(`http://localhost:8080/tech/taskcompleted/${email}`, {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
     })
     .then(response => response.json())

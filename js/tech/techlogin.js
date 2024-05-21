@@ -32,9 +32,9 @@ const fetchUserInfoTech = (idToken) => {
             } else {
                 showPopup("success.");
 
-                sessionStorage.setItem('emailtech', data.email);
-                sessionStorage.setItem('nametech', name);
-                sessionStorage.setItem('tokentech', idToken);
+                sessionStorage.setItem('email', data.email);
+                sessionStorage.setItem('name', name);
+                sessionStorage.setItem('token', idToken);
                 const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
                 history.replaceState(null, null, url);
                 techDashBoard();
@@ -50,22 +50,6 @@ function loadLoginTech() {
     loadLogin();
 }
 
-// function logOutTech() {
-//     sessionStorage.clear();  // Clear all session storage items
-//     window.location.hash = '';  // Clear the URL hash to remove any lingering OAuth tokens
-
-//     // Clear header and navbar contents
-//     document.getElementById('head').innerHTML = '';
-//     document.getElementById('navbar').innerHTML = '';
-
-//     // Remove header styles if any
-//     var headerStyle = document.getElementById('headerStyle');
-//     if (headerStyle) {
-//         headerStyle.remove();
-//     }
-
-//     loadLanding();
-// }
 
 function logOutTech() {
     sessionStorage.clear();  // Clear all session storage items
@@ -81,5 +65,5 @@ function logOutTech() {
         headerStyle.remove();
     }
 
-    loadLanding();
+    loadUserDashboard()
 }

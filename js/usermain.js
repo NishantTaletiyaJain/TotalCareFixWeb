@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         else {
             fetchUserInfo(idToken);
         }
-    } else if (sessionStorage.getItem('email') != null || sessionStorage.getItem('emailtech') != null) {
+    } else if (sessionStorage.getItem('email') != null) {
         if (sessionStorage.getItem('tech') == 'tech') {
            
             techDashBoard();
@@ -18,6 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
             loadUserDashboard();
         }
     } else {
-        loadLanding();
+        loadUserDashboard();
     }
 });

@@ -1,9 +1,9 @@
 function showMyBooking() {
-    const email = sessionStorage.getItem('emailtech'); // Use the correct email or fetch from sessionStorage if needed
+    const email = sessionStorage.getItem('email'); // Use the correct email or fetch from sessionStorage if needed
     fetch(`http://localhost:8080/tech/myorder/${email}`, {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
     })
     .then(response => response.json())
@@ -72,7 +72,7 @@ function cancelBookingTech(bookingId) {
     fetch(`http://localhost:8080/tech/cancel/${bookingId}`, {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
     })
     .then(response => response.json())

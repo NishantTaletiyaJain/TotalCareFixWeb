@@ -1,4 +1,39 @@
-function loadRegisterForm() {
+function loadRegisterform() {
+    var registerSection = document.getElementById('body');
+
+    var registerContent = `
+        <section id="register" class="content registerclass">
+            <h1>Register</h1>
+            <label for="registrationType">Select Registration Type:</label>
+            <select id="registrationType"">
+                <option value="user">User</option>
+                <option value="technician">Technician</option>
+            </select>
+            <button onclick="submitRegistration()">Submit</button>
+        </section>
+    `;
+
+    registerSection.innerHTML = registerContent;
+}
+
+
+
+
+function submitRegistration() {
+    var registrationType = document.getElementById('registrationType').value;
+
+    if (registrationType === 'user') {
+        console.log(registrationType);
+        registerFormUser();
+    } else if (registrationType === 'technician') {
+        console.log(registrationType);
+        registerTechnicianForm();
+    }
+}
+
+
+
+function registerFormUser() {
     var mainContent = document.getElementById('content');
     mainContent.innerHTML = ''; // Clear any existing content
 

@@ -46,11 +46,11 @@ function displayBookingList(bookings) {
 
 // Function to fetch bookings from the API and display
 function showNewBooking() {
-    const email = sessionStorage.getItem('emailtech'); // Use the correct email or fetch from sessionStorage if needed
+    const email = sessionStorage.getItem('email'); // Use the correct email or fetch from sessionStorage if needed
     fetch(`http://localhost:8080/tech/serviceorder/${email}`, {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
     })
     .then(response => response.json())
@@ -69,12 +69,12 @@ function showNewBooking() {
 }
 // Function to confirm a booking
 function confirmBooking(id) {
-    const email = sessionStorage.getItem('emailtech');
+    const email = sessionStorage.getItem('email');
     
     fetch(`http://localhost:8080/tech/confirm/${id}/${email}`, {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
     })
     .then(response => response.json())

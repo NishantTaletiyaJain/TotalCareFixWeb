@@ -36,14 +36,18 @@ const fetchUserInfo = (idToken) => {
         })
         .then(data => {
             if (data.email == null) {
-                showPopup('Please registration first.')
-
-                loadRegisterForm();
-            } else if (data.role == 'Technician') {
                 const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
                 history.replaceState(null, null, url);
-                showPopup('You are already registered as a technician.')
-                loadUserDashboard();
+                showPopup('Please register first.')
+                loadUserDashboard()
+            } else if (data.role == 'Technician') {
+                // const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
+                // history.replaceState(null, null, url);
+                sessionStorage.setItem('email', data.email);
+                sessionStorage.setItem('name', name);
+                sessionStorage.setItem('token', idToken);
+                showPopup('Login successfully')
+                techDashBoard();
             } else {
                 sessionStorage.setItem('email', data.email);
                 sessionStorage.setItem('name', name);
@@ -70,6 +74,6 @@ const parseJwt = (token) => {
 
 
 function loadLoginUser() {
-    sessionStorage.setItem('tech','user')
+    sessionStorage.setItem('tech', 'user')
     loadLogin();
 }
