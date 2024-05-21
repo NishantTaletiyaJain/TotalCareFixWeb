@@ -3,8 +3,8 @@ function loadRegisterFormTech() {
     mainContent.innerHTML = '';
 
     Promise.all([
-        fetch('https://totalcarefix.projects.bbdgrad.com/api/cities/getAllUserCities').then(response => response.json()),
-        fetch('https://totalcarefix.projects.bbdgrad.com/api/skills/getAllUserStatus').then(response => response.json())
+        fetch('http://localhost:8080/cities/getAllUserCities').then(response => response.json()),
+        fetch('http://localhost:8080/skills/getAllUserStatus').then(response => response.json())
     ]).then(([citiesData, skillsData]) => {
         var cityDropdownOptions = citiesData.map(city => `<option value="${city.name}">${city.name}</option>`).join('');
         var skillsDropdownOptions = skillsData.map(skill => `<option value="${skill.name}">${skill.name}</option>`).join('');
@@ -98,7 +98,7 @@ function submitTechRegistration(event) {
         skill: skill
     };
 
-    fetch('https://totalcarefix.projects.bbdgrad.com/api/register', {
+    fetch('http://localhost:8080/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

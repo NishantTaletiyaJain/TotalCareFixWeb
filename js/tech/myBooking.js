@@ -1,6 +1,6 @@
 function showMyBooking() {
     const email = sessionStorage.getItem('emailtech'); // Use the correct email or fetch from sessionStorage if needed
-    fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/myorder/${email}`, {
+    fetch(`http://localhost:8080/tech/myorder/${email}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
@@ -69,7 +69,7 @@ function displayMyBookingList(bookings) {
 }
 
 function cancelBookingTech(bookingId) {
-    fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/cancel/${bookingId}`, {
+    fetch(`http://localhost:8080/tech/cancel/${bookingId}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`

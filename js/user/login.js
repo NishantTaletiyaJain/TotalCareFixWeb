@@ -18,7 +18,7 @@ const fetchUserInfo = (idToken) => {
     const email = decodedToken.email;
     const name = decodedToken.name;
 
-    const url = 'https://totalcarefix.projects.bbdgrad.com/api/verify';
+    const url = 'http://localhost:8080/verify';
 
     const requestOptions = {
         method: 'GET',

@@ -73,7 +73,7 @@ function editShowPopup(message, bookingId) {
     var updateButton = document.createElement('button');
     updateButton.type = 'button';
     updateButton.textContent = 'Update Booking';
-    updateButton.onclick = function() {
+    updateButton.onclick = function () {
         updateBooking(bookingId);
     };
     form.appendChild(updateButton);
@@ -87,7 +87,7 @@ function editShowPopup(message, bookingId) {
     document.body.appendChild(popupOverlay);
 
     // Close the popup when clicking outside the container
-    popupOverlay.onclick = function(event) {
+    popupOverlay.onclick = function (event) {
         if (event.target === popupOverlay) {
             document.body.removeChild(popupOverlay);
         }
@@ -95,6 +95,8 @@ function editShowPopup(message, bookingId) {
 }
 
 function updateBooking(bookingId) {
+    const loader = document.getElementById('fullScreenLoader');
+    loader.style.display = 'block';
     const serviceDate = document.querySelector('.serviceDate').value;
     const expectedTime = document.querySelector('.expectedTime').value;
     const problemDescription = document.querySelector('.problemDescription').value;
@@ -129,7 +131,7 @@ function updateBooking(bookingId) {
         message: problemDescription
     };
 
-    fetch(`https://totalcarefix.projects.bbdgrad.com/api/editbooking/${bookingId}`, {
+    fetch(`http://localhost:8080/editbooking/${bookingId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -137,20 +139,26 @@ function updateBooking(bookingId) {
         },
         body: JSON.stringify(requestData)
     })
-    .then(response => {
-        if (!response.ok) {
-            showPopup('Failed to update booking');
-            throw new Error('Failed to update booking');
-        }
-        return response.json();
-    })
-    .then(data => {
-        showPopup('Booking updated successfully');
-        document.body.removeChild(document.getElementById('popupOverlay'));
-        loadYourBooking();
-    })
-    .catch(error => {
-        showPopup('Error updating booking');
-        console.error('Error updating booking:', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                loader.style.display = 'none';
+                loadYourBooking();
+                showPopup('Failed to update booking');
+                throw new Error('Failed to update booking');
+            }
+            return response.json();
+        })
+        .then(data => {
+            loader.style.display = 'none';
+            loadYourBooking();
+            showPopup('Booking updated successfully');
+            document.body.removeChild(document.getElementById('popupOverlay'));
+
+        })
+        .catch(error => {
+            loader.style.display = 'none';
+            loadYourBooking();
+            showPopup('Error updating booking');
+            console.error('Error updating booking:', error);
+        });
 }

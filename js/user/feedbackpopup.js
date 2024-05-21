@@ -108,6 +108,8 @@ function showFeedbackPopup(bookingId) {
 }
 
 function submitFeedback(bookingId) {
+    const loader = document.getElementById('fullScreenLoader');
+    loader.style.display = 'block';
     const rating = document.getElementById('rating').value;
     const message = document.querySelector('.feedbackMessage').value;
 
@@ -127,7 +129,7 @@ function submitFeedback(bookingId) {
         message: message
     };
 
-    fetch('https://totalcarefix.projects.bbdgrad.com/api/feedbacks', {
+    fetch('http://localhost:8080/feedbacks', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -143,6 +145,7 @@ function submitFeedback(bookingId) {
         return response.json();
     })
     .then(data => {
+        loader.style.display = 'none';
         showPopup('Feedback submitted successfully');
         document.body.removeChild(document.getElementById('popupOverlay'));
     })

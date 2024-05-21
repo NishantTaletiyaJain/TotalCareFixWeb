@@ -2,7 +2,7 @@ function loadRegisterForm() {
     var mainContent = document.getElementById('content');
     mainContent.innerHTML = ''; // Clear any existing content
 
-    fetch('https://totalcarefix.projects.bbdgrad.com/api/cities/getAllUserCities')
+    fetch('http://localhost:8080/cities/getAllUserCities')
         .then(response => response.json())
         .then(data => {
             var cityDropdownOptions = '';
@@ -95,7 +95,7 @@ function submitUserRegistration(event) {
         skill: skill
     };
 
-    fetch('https://totalcarefix.projects.bbdgrad.com/api/register', {
+    fetch('http://localhost:8080/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

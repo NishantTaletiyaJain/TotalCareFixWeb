@@ -1,116 +1,121 @@
 function loadYourBooking() {
+    const loader = document.getElementById('fullScreenLoader');
+    loader.style.display = 'block';
     if (sessionStorage.getItem('email') == null) {
         showPopup('Please login first');
+        loader.style.display = 'none';
     } else {
         var yourBookingSection = document.getElementById('content');
         var email = sessionStorage.getItem('email');
-        console.log(sessionStorage.getItem('token'));
-
-        fetch(`https://totalcarefix.projects.bbdgrad.com/api/showbooking/${email}`, {
+        
+        fetch(`http://localhost:8080/showbooking/${email}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             }
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch booking data');
-                }
-                return response.json();
-            })
-            .then(data => {
-                yourBookingSection.innerHTML = '';
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch booking data');
+            }
+            return response.json();
+        })
+        .then(data => {
+            yourBookingSection.innerHTML = '';
 
-                var section = document.createElement('section');
-                section.id = 'yourbooking';
-                section.className = 'content';
+            var section = document.createElement('section');
+            section.id = 'yourbooking';
+            section.className = 'content';
 
-                var bookingContainer = document.createElement('div');
-                bookingContainer.className = 'booking-container';
+            var bookingContainer = document.createElement('div');
+            bookingContainer.className = 'booking-container';
 
-                // Booking cards
-                data.forEach(booking => {
-                    var bookingItem = document.createElement('div');
-                    bookingItem.className = 'booking-item';
+            data.forEach(booking => {
+                var bookingItem = document.createElement('div');
+                bookingItem.className = 'booking-item';
 
-                    var bookingIdP = document.createElement('p');
-                    bookingIdP.textContent = "Booking ID: " + booking.bookingId;
-                    bookingItem.appendChild(bookingIdP);
+                var bookingIdP = document.createElement('p');
+                bookingIdP.textContent = "Booking ID: " + booking.bookingId;
+                bookingItem.appendChild(bookingIdP);
 
-                    var messageP = document.createElement('p');
-                    messageP.textContent = "Message: " + booking.message;
-                    bookingItem.appendChild(messageP);
+                var messageP = document.createElement('p');
+                messageP.textContent = "Message: " + booking.message;
+                bookingItem.appendChild(messageP);
 
-                    var dateP = document.createElement('p');
-                    dateP.textContent = "Date: " + new Date(booking.date).toLocaleDateString();
-                    bookingItem.appendChild(dateP);
+                var dateP = document.createElement('p');
+                dateP.textContent = "Date: " + new Date(booking.date).toLocaleDateString();
+                bookingItem.appendChild(dateP);
 
-                    var timeP = document.createElement('p');
-                    timeP.textContent = "Time: " + booking.time;
-                    bookingItem.appendChild(timeP);
+                var timeP = document.createElement('p');
+                timeP.textContent = "Time: " + booking.time;
+                bookingItem.appendChild(timeP);
 
-                    var statusP = document.createElement('p');
-                    statusP.textContent = "Status: " + booking.status;
-                    bookingItem.appendChild(statusP);
+                var statusP = document.createElement('p');
+                statusP.textContent = "Status: " + booking.status;
+                bookingItem.appendChild(statusP);
 
-                    var actionDiv = document.createElement('div');
+                var actionDiv = document.createElement('div');
 
-                    if (booking.status != 'Completed' && booking.status != 'Cancelled') {
-
-                        if (booking.status != 'booked') {
-                            var cancelButton = document.createElement('button');
-                            cancelButton.classList.add('cancel-button1');
-                            cancelButton.textContent = 'Cancel';
-                            cancelButton.onclick = function () {
-                                cancelBooking(booking.bookingId);
-                            };
-                            actionDiv.appendChild(cancelButton);
-                            
-                            var editButton = document.createElement('button');
-                            editButton.classList.add('edit-button');
-                            editButton.textContent = 'Edit';
-                            editButton.onclick = function () {
-                                editShowPopup('Update your Booking details',booking.bookingId);
-                            };
-                            actionDiv.appendChild(editButton);
-                        }
-
-                        if (booking.status != 'appointment') {
-
-                            var completeButton = document.createElement('button');
-                            completeButton.classList.add('complete-button');
-                            completeButton.textContent = 'Complete';
-                            completeButton.onclick = function () {
-                                completeBooking(booking.bookingId);
-                            };
-                            actionDiv.appendChild(completeButton);
-
-                        }
-                    }
-                    if (booking.status == 'Completed') {
-                        var feedbackButton = document.createElement('button');
-                        feedbackButton.classList.add('feedback-button');
-                        feedbackButton.textContent = 'Feedback';
-                        feedbackButton.onclick = function () {
-                            showFeedbackPopup(booking.bookingId);
+                if (booking.status != 'Completed' && booking.status != 'Cancelled') {
+                    if (booking.status != 'booked') {
+                        var cancelButton = document.createElement('button');
+                        cancelButton.classList.add('cancel-button1');
+                        cancelButton.textContent = 'Cancel';
+                        cancelButton.onclick = function () {
+                            cancelBooking(booking.bookingId);
                         };
-                        actionDiv.appendChild(feedbackButton);
+                        actionDiv.appendChild(cancelButton);
+
+                        var editButton = document.createElement('button');
+                        editButton.classList.add('edit-button');
+                        editButton.textContent = 'Edit';
+                        editButton.onclick = function () {
+                            editShowPopup('Update your Booking details', booking.bookingId);
+                        };
+                        actionDiv.appendChild(editButton);
                     }
 
-                    bookingItem.appendChild(actionDiv);
-                    bookingContainer.appendChild(bookingItem);
-                });
+                    if (booking.status != 'appointment') {
+                        var completeButton = document.createElement('button');
+                        completeButton.classList.add('complete-button');
+                        completeButton.textContent = 'Complete';
+                        completeButton.onclick = function () {
+                            completeBooking(booking.bookingId);
+                        };
+                        actionDiv.appendChild(completeButton);
+                    }
+                }
 
-                section.appendChild(bookingContainer);
-                yourBookingSection.appendChild(section);
-            })
-            .catch(error => console.error('Error loading booking data:', error));
+                if (booking.status == 'Completed') {
+                    var feedbackButton = document.createElement('button');
+                    feedbackButton.classList.add('feedback-button');
+                    feedbackButton.textContent = 'Feedback';
+                    feedbackButton.onclick = function () {
+                        showFeedbackPopup(booking.bookingId);
+                    };
+                    actionDiv.appendChild(feedbackButton);
+                }
+
+                bookingItem.appendChild(actionDiv);
+                bookingContainer.appendChild(bookingItem);
+            });
+
+            section.appendChild(bookingContainer);
+            yourBookingSection.appendChild(section);
+        })
+        .catch(error => {
+            console.error('Error loading booking data:', error);
+            showPopup('Error loading booking data');
+        })
+        .finally(() => {
+            loader.style.display = 'none';
+        });
     }
 }
 
 function cancelBooking(bookingId) {
     const token = sessionStorage.getItem('token');
-    const url = `https://totalcarefix.projects.bbdgrad.com/api/cancel/${bookingId}`;
+    const url = `http://localhost:8080/cancel/${bookingId}`;
 
     fetch(url, {
         method: 'POST',
@@ -134,7 +139,7 @@ function cancelBooking(bookingId) {
 
 function completeBooking(bookingId) {
     const token = sessionStorage.getItem('token');
-    const url = `https://totalcarefix.projects.bbdgrad.com/api/bookingcompleted/${bookingId}`;
+    const url = `http://localhost:8080/bookingcompleted/${bookingId}`;
 
     fetch(url, {
         method: 'GET',

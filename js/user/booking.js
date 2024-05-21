@@ -18,7 +18,7 @@ function loadBooking() {
     mainSection.innerHTML = bookingContent;
 
 
-    fetch('https://totalcarefix.projects.bbdgrad.com/api/skills/getAllUserStatus', {
+    fetch('http://localhost:8080/skills/getAllUserStatus', {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -83,7 +83,7 @@ const makeBooking = (event) => {
         };
 
 
-        fetch('https://totalcarefix.projects.bbdgrad.com/api/userbooking', {
+        fetch('http://localhost:8080/userbooking', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -107,8 +107,6 @@ const makeBooking = (event) => {
                 showPopup('fail booking');
                 console.error('Error making booking:', error);
             });
-
-        loadYourBooking();
     }
 };
 

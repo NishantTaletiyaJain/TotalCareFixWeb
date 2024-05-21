@@ -1,3 +1,5 @@
+/* Base font size assumption: 16px */
+
 :root {
   font-size: 1rem; /* Ensuring the root font size is defined for clarity */
 }
