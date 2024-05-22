@@ -85,6 +85,8 @@ function loadYourBooking() {
                         actionDiv.appendChild(completeButton);
                     }
                 }
+                //added feeback id
+                if(booking.feedbackId==0){
 
                 if (booking.status == 'Completed') {
                     var feedbackButton = document.createElement('button');
@@ -95,6 +97,7 @@ function loadYourBooking() {
                     };
                     actionDiv.appendChild(feedbackButton);
                 }
+              }
 
                 bookingItem.appendChild(actionDiv);
                 bookingContainer.appendChild(bookingItem);
@@ -112,6 +115,7 @@ function loadYourBooking() {
         });
 
     }
+    
     
 }
 
@@ -161,6 +165,8 @@ function completeBooking(bookingId) {
         .catch(error => {
             console.error('Error completing booking:', error);
         });
+
+        
 }
 
 // Add CSS for the cart-like structure and responsiveness
@@ -242,3 +248,15 @@ var css = `
 `;
 style.appendChild(document.createTextNode(css));
 document.head.appendChild(style);
+
+
+
+
+
+
+
+
+
+
+
+

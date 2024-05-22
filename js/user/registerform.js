@@ -46,12 +46,24 @@ function registerFormUser() {
             });
 
             var registerSection = document.createElement('section');
-            registerSection.id = 'register';
+            registerSection.id ='register';
             registerSection.className = 'content registerclass';
 
             var registerContent = `
                 <h1>User Registration</h1>
                 <form id="userRegistrationForm" onsubmit="submitUserRegistration(event)">
+                    <div class="form-group">
+                        <label for="firstName">firstName:</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                   </div>
+                   <div class="form-group">
+                        <label for="lastName">lastName:</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                         <label for="email">email:</label>
+                         <input type="text" id="email" name="email" required>
+                    </div>
                     <div class="form-group">
                         <label for="houseNo">House No:</label>
                         <input type="text" id="houseNo" name="houseNo" required>
@@ -99,13 +111,17 @@ function registerFormUser() {
 function submitUserRegistration(event) {
     event.preventDefault();
 
-    var urlParams = new URLSearchParams(window.location.hash.substring(1));
-    var idToken = urlParams.get('id_token');
-    var decodedToken = parseJwt(idToken);
-    var email = decodedToken.email;
-    var name = decodedToken.name;
+    // var urlParams = new URLSearchParams(window.location.hash.substring(1));
+    // var idToken = urlParams.get('id_token');
+    // var decodedToken = parseJwt(idToken);
+    // var email = decodedToken.email;
+    // var name = decodedToken.name;
 
 
+
+    var firstName = document.getElementById('firstName').value;
+    var lastName = document.getElementById('lastName').value;
+    var email = document.getElementById('email').value; 
     var houseNo = document.getElementById('houseNo').value;
     var street = document.getElementById('street').value;
     var society = document.getElementById('society').value;
@@ -116,6 +132,8 @@ function submitUserRegistration(event) {
     var skill = 'none';
     var role = 'User';
     var requestData = {
+        firstName: firstName,
+        lastName: lastName,
         houseNo: houseNo,
         street: street,
         society: society,
@@ -124,7 +142,6 @@ function submitUserRegistration(event) {
         pincode: pincode,
         contact: contactNo,
         email: email,
-        name: name,
         role: role,
         skill: skill
     };
@@ -133,7 +150,7 @@ function submitUserRegistration(event) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${idToken}`
+           // 'Authorization': `Bearer ${idToken}`
         },
         body: JSON.stringify(requestData)
     })
@@ -141,11 +158,23 @@ function submitUserRegistration(event) {
             if (!response.ok) {
                 throw new Error('Failed to register user');
             }
+            console.log("not register");
             return response.json();
+        
         })
         .then(data => {
-            showPopup('User registered successfully:', data);
-            loadLoginUser();
+            console.log("register");
+            console.log(data.state)
+            if(!data.state){
+                loadLoginUser();
+                showPopup('User registered successfully:', data);
+            }
+            else{
+                showPopup('already registered as:' + data.role );
+                loadRegisterFormTech();   
+            }
+            // showPopup('User registered successfully:', data);
+            // loadLoginUser();
         })
         .catch(error => {
             console.error('Error registering user:', error);

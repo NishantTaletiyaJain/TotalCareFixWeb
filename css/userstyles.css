@@ -219,6 +219,23 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+/* for cancel button in resgister form */
+
+button[type="button"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffae00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="button"]:hover {
+    background-color: #b30009;
+}
+
+
 /* editpopupcss */
 
 /* Overlay styles */

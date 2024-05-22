@@ -9,8 +9,8 @@ function loadUserNav() {
     if (sessionStorage.getItem('email') !== null) {
         // User is logged in
         menuItems.push({ text: 'Home', onclick: 'loadHome()' });
-        menuItems.push({ text: 'Booking', onclick: 'loadBooking()' });
-        menuItems.push({ text: 'SeeBooking', onclick: 'loadYourBooking()' });
+        menuItems.push({ text: 'Book HomeCraft', onclick: 'loadBooking()' });
+        menuItems.push({ text: 'your Booking', onclick: 'loadYourBooking()' });
         menuItems.push({ text: 'Logout', onclick: 'logout()' });
     } else {
         // User is not logged in
