@@ -192,7 +192,7 @@
 function loadCancelRegisterTech() {
     const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
     history.replaceState(null, null, url);
-    loadLanding();
+    loadUserDashboard();
 }
 
 
