@@ -10,7 +10,7 @@ function loadUserNav() {
         // User is logged in
         menuItems.push({ text: 'Home', onclick: 'loadHome()' });
         menuItems.push({ text: 'Book HomeCraft', onclick: 'loadBooking()' });
-        menuItems.push({ text: 'your Booking', onclick: 'loadYourBooking()' });
+        menuItems.push({ text: 'Your Booking', onclick: 'loadYourBooking()' });
         menuItems.push({ text: 'Logout', onclick: 'logout()' });
     } else {
         // User is not logged in

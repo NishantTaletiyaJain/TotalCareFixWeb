@@ -8,7 +8,7 @@ function loadYourBooking() {
         var yourBookingSection = document.getElementById('content');
         var email = sessionStorage.getItem('email');
 
-        // Create filter form
+        // filter form
         var filterForm = `
         <form id="filterForm">
             <div class="form-row">
@@ -37,7 +37,7 @@ function loadYourBooking() {
 
         loader.style.display = 'none';
 
-        // Add event listeners to filter inputs
+        //event listeners to filter inputs
         document.getElementById('statusFilter').addEventListener('change', applyFilter);
         document.getElementById('dateFilter').addEventListener('change', applyFilter);
     }
@@ -68,16 +68,24 @@ function fetchBookings(email) {
         });
 }
 
+
+
 function displayBookings(bookings) {
     var yourBookingSection = document.getElementById('content');
     var bookingContainer = document.querySelector('.booking-container');
     if (bookingContainer) {
         bookingContainer.innerHTML = ''; // Clear existing bookings
+        
     } else {
         bookingContainer = document.createElement('div');
         bookingContainer.className = 'booking-container';
     }
 
+    if (!bookings || bookings.length === 0) {
+        var messageTag = document.createElement('p');
+        messageTag.textContent = '<h2>No bookings available</h2>';
+        bookingContainer.appendChild(messageTag);
+    } else {
     bookings.forEach(booking => {
         var bookingItem = document.createElement('div');
         bookingItem.className = 'booking-item';
@@ -86,17 +94,27 @@ function displayBookings(bookings) {
         bookingIdP.textContent = "Booking ID: " + booking.bookingId;
         bookingItem.appendChild(bookingIdP);
 
+
+        var skillsp = document.createElement('p');
+        skillsp.textContent = "Skill: " + booking.skill;
+        bookingItem.appendChild(skillsp);
+      
+        var bookingDate = document.createElement("p");
+        bookingDate.textContent = "Service: " + formatDateTime(booking.date, booking.time);
+        bookingItem.appendChild(bookingDate);
+
+
+        // icon 
+        var icon = document.createElement('img');
+        icon.src = "./test/icons/Carpenter.svg"; 
+
+        icon.className = 'booking-icon';
+        bookingItem.appendChild(icon);
+
+
         var messageP = document.createElement('p');
         messageP.textContent = "Message: " + booking.message;
         bookingItem.appendChild(messageP);
-
-        var dateP = document.createElement('p');
-        dateP.textContent = "Date: " + new Date(booking.date).toLocaleDateString();
-        bookingItem.appendChild(dateP);
-
-        var timeP = document.createElement('p');
-        timeP.textContent = "Time: " + booking.time;
-        bookingItem.appendChild(timeP);
 
         var statusP = document.createElement('p');
         statusP.textContent = "Status: " + booking.status;
@@ -151,8 +169,13 @@ function displayBookings(bookings) {
         bookingContainer.appendChild(bookingItem);
     });
 
+  }
+
     yourBookingSection.appendChild(bookingContainer);
 }
+
+
+
 
 function applyFilter(event) {
     event.preventDefault();
@@ -321,3 +344,13 @@ var css = `
 `;
 style.appendChild(document.createTextNode(css));
 document.head.appendChild(style);
+
+
+
+function formatDateTime(dateString, timeString) {
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    const [hours, minutes] = timeString.split(':');
+    const formattedTime = new Date(date.setHours(hours, minutes)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return `${formattedDate} at ${formattedTime}`;
+}

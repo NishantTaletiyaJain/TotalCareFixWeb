@@ -1,3 +1,4 @@
+
 // Function to display the booking list
 function displayBookingList(bookings) {
     console.log('coming inside the new booking');
@@ -19,9 +20,10 @@ function displayBookingList(bookings) {
 
         const bookingService = document.createElement("p");
         bookingService.textContent = "Service: " + formatDateTime(booking.serviceDate, booking.expectedTime);
+        console.log(booking.serviceDate);
 
         const message = document.createElement("p");
-        bookingService.textContent = "Message: " + booking.message;
+        message.textContent = "Message: " + booking.message;
 
         const bookingMobile = document.createElement("p");
         bookingMobile.textContent = "Mobile Number: " + booking.mobileNumber;
@@ -42,7 +44,6 @@ function displayBookingList(bookings) {
 
     newBookingContent.appendChild(bookingContainer);
 }
-
 
 // Function to fetch bookings from the API and display
 function showNewBooking() {
@@ -67,6 +68,7 @@ function showNewBooking() {
         // Display error message or handle error as needed
     });
 }
+
 // Function to confirm a booking
 function confirmBooking(id) {
     const email = sessionStorage.getItem('email');
@@ -90,4 +92,12 @@ function confirmBooking(id) {
         console.error('Error confirming booking:', error);
         // Display error message or handle error as needed
     });
+}
+
+function formatDateTime(dateString, timeString) {
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    const [hours, minutes] = timeString.split(':');
+    const formattedTime = new Date(date.setHours(hours, minutes)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return `${formattedDate} at ${formattedTime}`;
 }
