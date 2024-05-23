@@ -1,0 +1,488 @@
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+nav ul {
+    padding: .3rem 0;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #333;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: large;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+}
+
+ul li a {
+    cursor: pointer;
+}
+
+
+#content #booking {
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    padding: 2%;
+}
+
+#booking form {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+
+#booking form label {
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+
+#bookingForm select.skills {
+    width: 100%;
+    padding: 1em;
+    margin-bottom: 1.5em;
+    border: 0.1em solid #ccc;
+    border-radius: 0.4em;
+    box-sizing: border-box;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23212121'%3E%3Cpath d='M15.1 7.3l-5.6 5.6-5.6-5.6c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5em top 50%;
+    background-size: 1em auto;
+    cursor: pointer;
+}
+
+
+#bookingForm select.skills:hover {
+    border-color: #666;
+}
+
+
+#bookingForm select.skills:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+
+#bookingForm input[type="date"].serviceDate {
+    width: 100%;
+    padding: 1em;
+    margin-bottom: 1.5em;
+    border: 0.1em solid #ccc;
+    border-radius: 0.4em;
+    box-sizing: border-box;
+    appearance: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+
+#bookingForm input[type="date"].serviceDate:hover {
+    border-color: #666;
+}
+
+
+#bookingForm input[type="date"].serviceDate:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+
+
+
+#booking form input[type="text"],
+#booking form input[type="time"] {
+    width: 100%;
+    padding: 1em;
+    margin-bottom: 1.5em;
+    border: 0.1em solid #ccc;
+    border-radius: 0.4em;
+    box-sizing: border-box;
+}
+
+
+#booking form textarea {
+    width: 100%;
+    padding: 1em;
+    margin-bottom: 1.5em;
+    border: 0.1em solid #ccc;
+    border-radius: 0.4em;
+    resize: vertical;
+    min-height: 6em;
+    box-sizing: border-box;
+}
+
+
+
+#booking form button[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    padding: 1.2em 2em;
+    border: none;
+    border-radius: 0.4em;
+    cursor: pointer;
+}
+
+#booking form button[type="submit"]:hover {
+    background-color: #45a049;
+    margin-bottom: 10px;
+    /* Add margin bottom */
+}
+
+footer {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+}
+
+
+
+
+
+.registerclass {
+    padding: 20px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    max-width: 600px;
+}
+
+.registerclass h1 {
+    margin-bottom: 20px;
+}
+
+.registerclass label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.registerclass select,
+.registerclass button {
+    margin-bottom: 10px;
+}
+
+.registerclass button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.registerclass button:hover {
+    background-color: #0056b3;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* for cancel button in resgister form */
+
+button[type="button"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffae00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="button"]:hover {
+    background-color: #b30009;
+}
+
+
+/* editpopupcss */
+
+/* Overlay styles */
+#popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Container styles */
+#popupContainer {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Form styles */
+#editBookingForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#editBookingForm label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#editBookingForm input,
+#editBookingForm textarea {
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#editBookingForm textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+#editBookingForm button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+    font-size: 16px;
+}
+
+#editBookingForm button:hover {
+    background-color: #0056b3;
+}
+
+/* Close popup when clicking outside the container */
+#popupOverlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/* feedback popup */
+
+/* Overlay styles */
+#popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Container styles */
+#popupContainer {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Form styles */
+#feedbackForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#feedbackForm label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#feedbackForm textarea {
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 80px;
+}
+
+#feedbackForm button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+    font-size: 16px;
+}
+
+#feedbackForm button:hover {
+    background-color: #0056b3;
+}
+
+
+/* loader  */
+
+
+
+
+
+/* Full-screen loader styles */
+#fullScreenLoader {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 9999; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Disable scroll */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+}
+
+.spinner {
+    border: 1.5em solid #f3f3f3; /* Light grey */
+    border-top: 1.5em solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+    margin-left: -6.5em;
+    margin-top: -6.5em;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Confirm popup */
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    animation: popupFadeIn 0.3s ease-in-out;
+}
+
+.popup-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.yes-button {
+    background-color: green;
+    color: white;
+}
+
+.yes-button:hover {
+    background-color: darkgreen;
+}
+
+.no-button {
+    background-color: red;
+    color: white;
+}
+
+.no-button:hover {
+    background-color: darkred;
+}
+
+/* Popup fade-in animation */
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

@@ -1,0 +1,135 @@
+/* Base font size assumption: 16px */
+
+:root {
+  font-size: 1rem; /* Ensuring the root font size is defined for clarity */
+}
+
+/* Container for the bookings */
+.booking-container {
+  display: grid;
+  gap: 1rem; /* Add gap between cards */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+  padding: 1rem;
+}
+
+.booking-item, .booking-item1 {
+  padding: 1rem; /* More padding for a robust look */
+  border: 1px solid #ccc;
+  border-radius: 0.5rem; /* Slightly larger border radius */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Add subtle shadow */
+  background-color: #fff; /* White background for card look */
+  box-sizing: border-box;
+  transition: transform 0.2s; /* Smooth transform transition */
+}
+
+.booking-item:hover, .booking-item1:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.booking-item p, .booking-item1 p {
+  margin: 0.5rem 0; /* More spacing between paragraphs */
+}
+
+.booking-item button, .booking-item1 button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0.25rem; /* Rounded button corners */
+  padding: 0.5rem 1rem; /* Larger padding for buttons */
+  cursor: pointer;
+  transition: background-color 0.2s; /* Smooth background color transition */
+}
+
+.booking-item button:hover, .booking-item1 button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.cancel-button1 {
+  background-color: red;
+  color: white;
+  padding: 0.5rem 1rem; /* Consistent padding for buttons */
+  border: none;
+  border-radius: 0.25rem; /* Rounded button corners */
+  cursor: pointer;
+  transition: background-color 0.2s; /* Smooth background color transition */
+}
+
+.cancel-button1:hover {
+  background-color: darkred; /* Darker red on hover */
+}
+
+
+
+
+
+
+
+
+/* CSS scoped to the booking section */
+
+/* Booking item styles */
+#content .booking-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#content .booking-item p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+#content .booking-item button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#content .booking-item button:hover {
+  background-color: #45a049;
+}
+
+/* New booking container styles */
+#content .booking-container {
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Heading styles */
+#content h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Differentiated detail styles */
+#content .booking-item .booking-id {
+  font-weight: bold;
+  color: #007bff;
+}
+
+#content .booking-item .booking-address {
+  font-style: italic;
+  color: #666;
+}
+
+#content .booking-item .booking-service {
+  font-weight: bold;
+  color: #ff6c00;
+}
+
+#content .booking-item .booking-mobile {
+  color: #888;
+}
+
+/* Internal fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
