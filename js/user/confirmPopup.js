@@ -1,3 +1,5 @@
+
+// Function to dynamically create the confirmation popup
 function createConfirmationPopup() {
     var popupHTML = `
         <div id="confirmationPopup" class="popup-overlay" style="display: none;">
@@ -11,7 +13,10 @@ function createConfirmationPopup() {
     document.body.insertAdjacentHTML('beforeend', popupHTML);
 }
 
-function showConfirmationPopup(message, onConfirm, onCancel) {
+// Ensure the popup is created when the page loads
+createConfirmationPopup();
+
+function showConfirmationPopup(message, onConfirm, id) {
     var popup = document.getElementById('confirmationPopup');
     var messageElement = document.getElementById('confirmationMessage');
     var confirmButton = document.getElementById('confirmYes');
@@ -21,17 +26,21 @@ function showConfirmationPopup(message, onConfirm, onCancel) {
 
     confirmButton.onclick = function() {
         if (typeof onConfirm === 'function') {
-            onConfirm();
+            console.log(id);
+            cancelBooking(id);
         }
         popup.style.display = 'none';
     };
 
     cancelButton.onclick = function() {
         if (typeof onCancel === 'function') {
+            console.log('no');
             onCancel();
         }
         popup.style.display = 'none';
     };
 
-    popup.style.display = 'block';
+    popup.style.display = 'flex'; // Use flex to match the CSS styling for centering
 }
+
+// The rest of the JavaScript functions (e.g., loadYourBooking, cancelBooking) remain unchanged

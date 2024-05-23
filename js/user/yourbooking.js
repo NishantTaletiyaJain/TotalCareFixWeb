@@ -1,6 +1,29 @@
+function cancelBooking(bookingId) {
+    const token = sessionStorage.getItem('token');
+    const url = `http://localhost:8080/cancel/${bookingId}`;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                showPopup('Failed to cancel booking');
+            } else {
+                showPopup('Booking canceled successfully');
+                loadYourBooking();
+            }
+        })
+        .catch(error => {
+            console.error('Error canceling booking:', error);
+        });
+}
+
 function loadYourBooking() {
-    const loader = document.getElementById('fullScreenLoader');
-    loader.style.display = 'block';
+    
     if (sessionStorage.getItem('email') == null) {
         showPopup('Please login first');
         loader.style.display = 'none';
@@ -35,7 +58,6 @@ function loadYourBooking() {
         // Fetch and display bookings
         fetchBookings(email);
 
-        loader.style.display = 'none';
 
         //event listeners to filter inputs
         document.getElementById('statusFilter').addEventListener('change', applyFilter);
@@ -44,6 +66,8 @@ function loadYourBooking() {
 }
 
 function fetchBookings(email) {
+    const loader = document.getElementById('fullScreenLoader');
+    loader.style.display = 'block';
     const url = `http://localhost:8080/showbooking/${email}`;
 
     fetch(url, {
@@ -54,6 +78,7 @@ function fetchBookings(email) {
     })
         .then(response => {
             if (!response.ok) {
+                loader.style.display = 'none';
                 throw new Error('Failed to fetch booking data');
             }
             return response.json();
@@ -61,8 +86,11 @@ function fetchBookings(email) {
         .then(data => {
             window.allBookings = data; // Store all bookings for client-side filtering
             displayBookings(data);
+            
+        loader.style.display = 'none';
         })
         .catch(error => {
+            loader.style.display = 'none';
             console.error('Error loading booking data:', error);
             showPopup('Error loading booking data');
         });
@@ -103,15 +131,6 @@ function displayBookings(bookings) {
         bookingDate.textContent = "Service: " + formatDateTime(booking.date, booking.time);
         bookingItem.appendChild(bookingDate);
 
-
-        // icon 
-        var icon = document.createElement('img');
-        icon.src = "./test/icons/Carpenter.svg"; 
-
-        icon.className = 'booking-icon';
-        bookingItem.appendChild(icon);
-
-
         var messageP = document.createElement('p');
         messageP.textContent = "Message: " + booking.message;
         bookingItem.appendChild(messageP);
@@ -119,6 +138,26 @@ function displayBookings(bookings) {
         var statusP = document.createElement('p');
         statusP.textContent = "Status: " + booking.status;
         bookingItem.appendChild(statusP);
+
+        // Check if feedback exists and display it
+        if (booking.feedback) {
+            var feedbackRatingP = document.createElement('p');
+            feedbackRatingP.textContent = "Rating: " + booking.feedback.rating;
+            bookingItem.appendChild(feedbackRatingP);
+
+            var feedbackMessageP = document.createElement('p');
+            feedbackMessageP.textContent = "Feedback: " + booking.feedback.message;
+            bookingItem.appendChild(feedbackMessageP);
+
+            // Add button to modify feedback
+            var editFeedbackButton = document.createElement('button');
+            editFeedbackButton.classList.add('edit-feedback-button');
+            editFeedbackButton.textContent = 'Edit Feedback';
+            editFeedbackButton.onclick = function () {
+                showFeedbackPopup(booking.bookingId, booking.feedback);
+            };
+            bookingItem.appendChild(editFeedbackButton);
+        }
 
         var actionDiv = document.createElement('div');
 
@@ -128,8 +167,9 @@ function displayBookings(bookings) {
                 cancelButton.classList.add('cancel-button1');
                 cancelButton.textContent = 'Cancel';
                 cancelButton.onclick = function () {
-                    createConfirmationPopup('Do you really want to cancel',cancelBooking(booking.bookingId))
-                    
+                    showConfirmationPopup('Are you sure you want to cancel this booking?', function () {
+                        cancelBooking(booking.bookingId);
+                    }, booking.bookingId);
                 };
                 actionDiv.appendChild(cancelButton);
 
@@ -152,17 +192,16 @@ function displayBookings(bookings) {
                 actionDiv.appendChild(completeButton);
             }
         }
-        //added feeback id
-        if (booking.feedbackId == 0) {
-            if (booking.status == 'Completed') {
-                var feedbackButton = document.createElement('button');
-                feedbackButton.classList.add('feedback-button');
-                feedbackButton.textContent = 'Feedback';
-                feedbackButton.onclick = function () {
-                    showFeedbackPopup(booking.bookingId);
-                };
-                actionDiv.appendChild(feedbackButton);
-            }
+
+        // Add feedback button if no feedback provided
+        if (!booking.feedback && booking.status == 'Completed') {
+            var feedbackButton = document.createElement('button');
+            feedbackButton.classList.add('feedback-button');
+            feedbackButton.textContent = 'Feedback';
+            feedbackButton.onclick = function () {
+                showFeedbackPopup(booking.bookingId);
+            };
+            actionDiv.appendChild(feedbackButton);
         }
 
         bookingItem.appendChild(actionDiv);
@@ -196,33 +235,6 @@ function applyFilter(event) {
     displayBookings(filteredBookings);
 }
 
-
-function cancelBooking(bookingId) {
-    showConfirmationPopup('Are you sure you want to cancel this booking?', function() {
-        const token = sessionStorage.getItem('token');
-        const url = `http://localhost:8080/cancel/${bookingId}`;
-
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                showPopup('Failed to cancel booking');
-            } else {
-                showPopup('Booking canceled successfully');
-                loadYourBooking();
-            }
-        })
-        .catch(error => {
-            console.error('Error canceling booking:', error);
-        });
-    });
-}
-
 function completeBooking(bookingId) {
     const token = sessionStorage.getItem('token');
     const url = `http://localhost:8080/bookingcompleted/${bookingId}`;
@@ -244,9 +256,9 @@ function completeBooking(bookingId) {
         })
         .catch(error => {
             console.error('Error completing booking:', error);
-
         });
 }
+
 // Add CSS for the cart-like structure and responsiveness
 var style = document.createElement('style');
 style.id = 'yourBookingStyle';

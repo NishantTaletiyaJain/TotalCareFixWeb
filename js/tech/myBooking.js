@@ -1,4 +1,6 @@
 function showMyBooking() {
+    const loader = document.getElementById('fullScreenLoader');
+    loader.style.display = 'block';
     const email = sessionStorage.getItem('email'); // Use the correct email or fetch from sessionStorage if needed
     fetch(`http://localhost:8080/tech/myorder/${email}`, {
         method: 'GET',
@@ -6,36 +8,40 @@ function showMyBooking() {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data && data.length > 0) {
-            displayMyBookingList(data);
-        } else {
-            const myBookingContent = document.getElementById("content");
-            if (myBookingContent) {
-                myBookingContent.innerHTML = "<h2>No bookings found</h2>";
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+
+                displayMyBookingList(data);
+                loader.style.display = 'none';
+
             } else {
-                console.error("Element with id 'content' not found");
+                const myBookingContent = document.getElementById("content");
+                if (myBookingContent) {
+                    myBookingContent.innerHTML = "<h2>No bookings found</h2>";
+                    loader.style.display = 'none';
+                } else {
+                    console.error("Element with id 'content' not found");
+                }
             }
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching bookings:', error);
-        // Display error message or handle error as needed
-    });
+        })
+        .catch(error => {
+            console.error('Error fetching bookings:', error);
+            // Display error message or handle error as needed
+        });
 }
 function displayMyBookingList(bookings) {
     const myBookingContent = document.getElementById("content");
     if (myBookingContent) {
         myBookingContent.innerHTML = `<h2>My Booking List</h2>`;
-        
+
         const bookingContainer = document.createElement("div");
         bookingContainer.classList.add("booking-container");
 
         bookings.forEach(booking => {
             const bookingItem = document.createElement("div");
             bookingItem.classList.add("booking-item1");
-            
+
             const bookingBookingId = document.createElement("p");
             bookingBookingId.textContent = "BookingId: " + booking.bookingId;
 
@@ -75,19 +81,19 @@ function cancelBookingTech(bookingId) {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data) {
-            showPopup("Booking canceled successfully");
-            showMyBooking();
-        } else {
-            console.error('Failed to cancel booking:', data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error canceling booking:', error);
-        // Display error message or handle error as needed
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                showPopup("Booking canceled successfully");
+                showMyBooking();
+            } else {
+                console.error('Failed to cancel booking:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error canceling booking:', error);
+            // Display error message or handle error as needed
+        });
 }
 
 

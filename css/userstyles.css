@@ -1,3 +1,4 @@
+
 * {
     padding: 0;
     margin: 0;
@@ -421,8 +422,7 @@ button[type="button"]:hover {
     100% { transform: rotate(360deg); }
 }
 
-
-/* confirm popup */
+/* Confirm popup */
 
 .popup-overlay {
     position: fixed;
@@ -440,11 +440,12 @@ button[type="button"]:hover {
 .popup-container {
     background-color: #fff;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     max-width: 400px;
     width: 100%;
+    animation: popupFadeIn 0.3s ease-in-out;
 }
 
 .popup-button {
@@ -453,6 +454,7 @@ button[type="button"]:hover {
     border-radius: 5px;
     cursor: pointer;
     margin: 10px;
+    transition: background-color 0.3s ease;
 }
 
 .yes-button {
@@ -460,11 +462,16 @@ button[type="button"]:hover {
     color: white;
 }
 
+.yes-button:hover {
+    background-color: darkgreen;
+}
+
 .no-button {
     background-color: red;
     color: white;
 }
 
+<<<<<<< HEAD
 
 
 
@@ -474,4 +481,20 @@ button[type="button"]:hover {
     right: 10px;
     width: 20px; /* Adjust size as needed */
     height: 20px; /* Adjust size as needed */
+=======
+.no-button:hover {
+    background-color: darkred;
+}
+
+/* Popup fade-in animation */
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+>>>>>>> 1ad458f0b346d41e7ca8188a06671b28f39408b6
 }

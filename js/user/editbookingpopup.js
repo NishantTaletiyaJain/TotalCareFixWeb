@@ -92,6 +92,22 @@ function editShowPopup(message, bookingId) {
             document.body.removeChild(popupOverlay);
         }
     };
+
+    // Set the minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+
+    // Set the minimum time to the current time if the selected date is today
+    dateInput.addEventListener('input', () => {
+        const selectedDate = dateInput.value;
+        if (selectedDate === today) {
+            const now = new Date();
+            const currentTime = now.toTimeString().split(' ')[0].substring(0, 5); // format as HH:MM
+            timeInput.setAttribute('min', currentTime);
+        } else {
+            timeInput.removeAttribute('min');
+        }
+    });
 }
 
 function updateBooking(bookingId) {
@@ -104,17 +120,21 @@ function updateBooking(bookingId) {
     const today = new Date().toISOString().split('T')[0];
     if (serviceDate === '' || serviceDate < today) {
         showPopup('Please select a valid future service date.');
+        loader.style.display = 'none';
         return;
     }
 
-    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-    if (expectedTime === '' || expectedTime < currentTime) {
+    const currentDate = new Date();
+    const selectedDate = new Date(serviceDate);
+    if (selectedDate.toISOString().split('T')[0] === currentDate.toISOString().split('T')[0] && expectedTime <= currentDate.toTimeString().split(' ')[0].substring(0, 5)) {
         showPopup('Please select a valid future expected time.');
+        loader.style.display = 'none';
         return;
     }
 
     if (problemDescription.trim() === '') {
         showPopup('Please enter a problem description.');
+        loader.style.display = 'none';
         return;
     }
 
