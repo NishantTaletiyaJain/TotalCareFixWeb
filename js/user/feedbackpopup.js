@@ -1,5 +1,6 @@
+
 function showFeedbackPopup(bookingId) {
-    // Create the popup overlay
+    
     var popupOverlay = document.createElement('div');
     popupOverlay.id = 'popupOverlay';
     popupOverlay.style.position = 'fixed';
@@ -13,7 +14,7 @@ function showFeedbackPopup(bookingId) {
     popupOverlay.style.justifyContent = 'center';
     popupOverlay.style.zIndex = '1000';
 
-    // Create the popup container
+    
     var popupContainer = document.createElement('div');
     popupContainer.id = 'popupContainer';
     popupContainer.style.backgroundColor = '#fff';
@@ -24,14 +25,14 @@ function showFeedbackPopup(bookingId) {
     popupContainer.style.maxWidth = '400px';
     popupContainer.style.width = '100%';
 
-    // Create the form
+    
     var form = document.createElement('form');
     form.id = 'feedbackForm';
     form.style.display = 'flex';
     form.style.flexDirection = 'column';
     form.style.alignItems = 'flex-start';
 
-    // Create the rating input
+    
     var ratingLabel = document.createElement('label');
     ratingLabel.textContent = 'Rating (1 to 5):';
     ratingLabel.style.display = 'block';
@@ -52,7 +53,7 @@ function showFeedbackPopup(bookingId) {
     ratingInput.style.boxSizing = 'border-box';
     form.appendChild(ratingInput);
 
-    // Create the message textarea
+    
     var messageLabel = document.createElement('label');
     messageLabel.setAttribute('for', 'feedbackMessage');
     messageLabel.textContent = 'Message:';
@@ -74,7 +75,7 @@ function showFeedbackPopup(bookingId) {
     messageTextarea.style.minHeight = '80px';
     form.appendChild(messageTextarea);
 
-    // Create the submit button
+    
     var submitButton = document.createElement('button');
     submitButton.type = 'button';
     submitButton.textContent = 'Submit Feedback';
@@ -92,14 +93,14 @@ function showFeedbackPopup(bookingId) {
     };
     form.appendChild(submitButton);
 
-    // Append the form to the container
+    
     popupContainer.appendChild(form);
     popupOverlay.appendChild(popupContainer);
 
-    // Append the overlay to the body
+    
     document.body.appendChild(popupOverlay);
 
-    // Close the popup when clicking outside the container
+    
     popupOverlay.onclick = function(event) {
         if (event.target === popupOverlay) {
             document.body.removeChild(popupOverlay);
@@ -108,6 +109,8 @@ function showFeedbackPopup(bookingId) {
 }
 
 function submitFeedback(bookingId) {
+    const loader = document.getElementById('fullScreenLoader');
+    loader.style.display = 'block';
     const rating = document.getElementById('rating').value;
     const message = document.querySelector('.feedbackMessage').value;
 
@@ -143,8 +146,14 @@ function submitFeedback(bookingId) {
         return response.json();
     })
     .then(data => {
+        loader.style.display = 'none';
         showPopup('Feedback submitted successfully');
         document.body.removeChild(document.getElementById('popupOverlay'));
+        
+        var feedbackButton = document.querySelector('.feedback-button');
+        if (feedbackButton) {
+            feedbackButton.style.display = 'none';
+        }
     })
     .catch(error => {
         showPopup('Error submitting feedback');

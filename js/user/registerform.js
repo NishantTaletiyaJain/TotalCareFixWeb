@@ -1,6 +1,40 @@
-function loadRegisterForm() {
+function loadRegisterform() {
+    var registerSection = document.getElementById('content');
+
+    var registerContent = `
+        <section id="register" class="content registerclass">
+            <h1>Register</h1>
+            <label for="registrationType">Select Registration Type:</label>
+            <select id="registrationType"">
+                <option value="user">User</option>
+                <option value="technician">Technician</option>
+            </select>
+            <button onclick="submitRegistration()">Submit</button>
+        </section>
+    `;
+
+    registerSection.innerHTML = registerContent;
+}
+
+
+
+function submitRegistration() {
+    var registrationType = document.getElementById('registrationType').value;
+
+    if (registrationType === 'user') {
+        console.log(registrationType);
+        registerFormUser();
+    } else if (registrationType === 'technician') {
+        console.log(registrationType);
+        loadRegisterFormTech();
+    }
+}
+
+
+
+function registerFormUser() {
     var mainContent = document.getElementById('content');
-    mainContent.innerHTML = ''; // Clear any existing content
+    mainContent.innerHTML = ''; 
 
     fetch('https://totalcarefix.projects.bbdgrad.com/api/cities/getAllUserCities')
         .then(response => response.json())
@@ -12,12 +46,24 @@ function loadRegisterForm() {
             });
 
             var registerSection = document.createElement('section');
-            registerSection.id = 'register';
+            registerSection.id ='register';
             registerSection.className = 'content registerclass';
 
             var registerContent = `
                 <h1>User Registration</h1>
                 <form id="userRegistrationForm" onsubmit="submitUserRegistration(event)">
+                    <div class="form-group">
+                        <label for="firstName">firstName:</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                   </div>
+                   <div class="form-group">
+                        <label for="lastName">lastName:</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                         <label for="email">email:</label>
+                         <input type="text" id="email" name="email" required>
+                    </div>
                     <div class="form-group">
                         <label for="houseNo">House No:</label>
                         <input type="text" id="houseNo" name="houseNo" required>
@@ -65,13 +111,17 @@ function loadRegisterForm() {
 function submitUserRegistration(event) {
     event.preventDefault();
 
-    var urlParams = new URLSearchParams(window.location.hash.substring(1));
-    var idToken = urlParams.get('id_token');
-    var decodedToken = parseJwt(idToken);
-    var email = decodedToken.email;
-    var name = decodedToken.name;
+    
+    
+    
+    
+    
 
 
+
+    var firstName = document.getElementById('firstName').value;
+    var lastName = document.getElementById('lastName').value;
+    var email = document.getElementById('email').value; 
     var houseNo = document.getElementById('houseNo').value;
     var street = document.getElementById('street').value;
     var society = document.getElementById('society').value;
@@ -82,6 +132,8 @@ function submitUserRegistration(event) {
     var skill = 'none';
     var role = 'User';
     var requestData = {
+        firstName: firstName,
+        lastName: lastName,
         houseNo: houseNo,
         street: street,
         society: society,
@@ -90,7 +142,6 @@ function submitUserRegistration(event) {
         pincode: pincode,
         contact: contactNo,
         email: email,
-        name: name,
         role: role,
         skill: skill
     };
@@ -99,7 +150,7 @@ function submitUserRegistration(event) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${idToken}`
+           
         },
         body: JSON.stringify(requestData)
     })
@@ -107,11 +158,23 @@ function submitUserRegistration(event) {
             if (!response.ok) {
                 throw new Error('Failed to register user');
             }
+            console.log("not register");
             return response.json();
+        
         })
         .then(data => {
-            showPopup('User registered successfully:', data);
-            loadLoginUser();
+            console.log("register");
+            console.log(data.state)
+            if(!data.state){
+                loadLoginUser();
+                showPopup('User registered successfully:', data);
+            }
+            else{
+                showPopup('already registered as:' + data.role );
+                loadRegisterFormTech();   
+            }
+            
+            
         })
         .catch(error => {
             console.error('Error registering user:', error);
@@ -119,7 +182,7 @@ function submitUserRegistration(event) {
 }
 
 function loadCancelRegister() {
-    const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
+    const url = window.location.href.split('#')[0]; 
     history.replaceState(null, null, url);
     loadUserDashboard();
 }

@@ -7,16 +7,34 @@ function loadBooking() {
             <!-- Options populated dynamically using JavaScript -->
         </select>
         <label for="serviceDate">Service Date:</label>
-        <input type="date" class="serviceDate" name="serviceDate" class="datepicker">
+        <input type="date" class="serviceDate" name="serviceDate" class="datepicker" required>
         <label for="expectedTime">Expected Time:</label>
-        <input type="time" class="expectedTime" name="expectedTime">
+        <input type="time" class="expectedTime" name="expectedTime" required>
         <label for="problemDescription">Problem Description:</label>
-        <textarea class="problemDescription" name="problemDescription"></textarea>
+        <textarea class="problemDescription" name="problemDescription" required></textarea>
         <button type="submit" onclick="makeBooking(event)">Book Now</button>
     </form>
 </section>`;
     mainSection.innerHTML = bookingContent;
 
+    
+    const today = new Date().toISOString().split('T')[0];
+    document.querySelector('.serviceDate').setAttribute('min', today);
+
+    
+    const serviceDateInput = document.querySelector('.serviceDate');
+    const expectedTimeInput = document.querySelector('.expectedTime');
+
+    serviceDateInput.addEventListener('input', () => {
+        const selectedDate = serviceDateInput.value;
+        if (selectedDate === today) {
+            const now = new Date();
+            const currentTime = now.toTimeString().split(' ')[0].substring(0, 5); 
+            expectedTimeInput.setAttribute('min', currentTime);
+        } else {
+            expectedTimeInput.removeAttribute('min');
+        }
+    });
 
     fetch('https://totalcarefix.projects.bbdgrad.com/api/skills/getAllUserStatus', {
         method: 'GET',
@@ -31,33 +49,33 @@ function loadBooking() {
         })
         .catch(error => console.error('Error fetching data:', error));
 }
+
 const makeBooking = (event) => {
     event.preventDefault();
     if (sessionStorage.getItem('email') == null) {
         showPopup('Please login first');
-
-    }
-    else {
-
-
+    } else {
         const selectedSkill = document.querySelector('.skills').value;
         const serviceDate = document.querySelector('.serviceDate').value;
-        let expectedTime = document.querySelector('.expectedTime').value;
+        const expectedTime = document.querySelector('.expectedTime').value;
         const problemDescription = document.querySelector('.problemDescription').value;
 
-        if (selectedSkill === '0') {
+        if (!selectedSkill) {
             showPopup('Please select a skill.');
             return;
         }
 
         const today = new Date().toISOString().split('T')[0];
-        if (serviceDate === '' || serviceDate < today) {
+        if (!serviceDate || serviceDate < today) {
             showPopup('Please select a valid future service date.');
             return;
         }
 
-        const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-        if (expectedTime === '' || expectedTime < currentTime) {
+        const currentDate = new Date();
+        const selectedDate = new Date(serviceDate);
+        
+        
+        if (selectedDate.toISOString().split('T')[0] === currentDate.toISOString().split('T')[0] && expectedTime <= currentDate.toTimeString().split(' ')[0].substring(0, 5)) {
             showPopup('Please select a valid future expected time.');
             return;
         }
@@ -82,7 +100,6 @@ const makeBooking = (event) => {
             message: problemDescription
         };
 
-
         fetch('https://totalcarefix.projects.bbdgrad.com/api/userbooking', {
             method: 'POST',
             headers: {
@@ -93,22 +110,18 @@ const makeBooking = (event) => {
         })
             .then(response => {
                 if (!response.ok) {
-                    showPopup('fail');
+                    showPopup('Failed to make booking');
                     throw new Error('Failed to make booking');
                 }
                 return response.json();
             })
             .then(data => {
-                showPopup('Booking made successfully:', data);
-                showPopup('Booking made successfully');
+                showPopup('Booking made successfully', data);
                 loadBooking();
             })
             .catch(error => {
-                showPopup('fail booking');
+                showPopup('Failed to make booking');
                 console.error('Error making booking:', error);
             });
-
-        loadYourBooking();
     }
 };
-

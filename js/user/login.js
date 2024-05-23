@@ -6,13 +6,13 @@ const loadLogin = () => {
     window.location.href = authUrl;
 }
 
-// Function to parse the ID token from the URL
+
 const parseTokenFromUrl = () => {
     const urlParams = new URLSearchParams(window.location.hash.substring(1));
     return urlParams.get('id_token');
 }
 
-// Function to fetch user info using the ID token
+
 const fetchUserInfo = (idToken) => {
     const decodedToken = parseJwt(idToken);
     const email = decodedToken.email;
@@ -36,14 +36,18 @@ const fetchUserInfo = (idToken) => {
         })
         .then(data => {
             if (data.email == null) {
-                showPopup('Please registration first.')
-
-                loadRegisterForm();
-            } else if (data.role == 'Technician') {
-                const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
+                const url = window.location.href.split('#')[0]; 
                 history.replaceState(null, null, url);
-                showPopup('You are already registered as a technician.')
-                loadUserDashboard();
+                showPopup('Please register first.')
+                loadUserDashboard()
+            } else if (data.role == 'Technician') {
+                
+                
+                sessionStorage.setItem('email', data.email);
+                sessionStorage.setItem('name', name);
+                sessionStorage.setItem('token', idToken);
+                showPopup('Login successfully')
+                techDashBoard();
             } else {
                 sessionStorage.setItem('email', data.email);
                 sessionStorage.setItem('name', name);
@@ -57,7 +61,7 @@ const fetchUserInfo = (idToken) => {
         });
 }
 
-// Function to parse JWT token
+
 const parseJwt = (token) => {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -70,6 +74,6 @@ const parseJwt = (token) => {
 
 
 function loadLoginUser() {
-    sessionStorage.setItem('tech','user')
+    sessionStorage.setItem('tech', 'user')
     loadLogin();
 }

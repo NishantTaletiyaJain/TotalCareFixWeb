@@ -1,3 +1,10 @@
+function loadCancelRegisterTech() {
+    const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
+    history.replaceState(null, null, url);
+    loadUserDashboard();
+}
+
+
 function loadRegisterFormTech() {
     var mainContent = document.getElementById('content');
     mainContent.innerHTML = '';
@@ -16,12 +23,24 @@ function loadRegisterFormTech() {
         var registerContent = `
             <h1>User Registration</h1>
             <form id="userRegistrationForm" onsubmit="submitTechRegistration(event)">
-            <div class="form-group">
+                <div class="form-group">
                     <label for="skill">Skill:</label>
                     <select id="skill" name="skill" required>
                         <option value="">Select Skill</option>
                         ${skillsDropdownOptions}
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="houseNo">House No:</label>
@@ -66,15 +85,13 @@ function loadRegisterFormTech() {
     });
 }
 
+
 function submitTechRegistration(event) {
     event.preventDefault();
 
-    var urlParams = new URLSearchParams(window.location.hash.substring(1));
-    var idToken = urlParams.get('id_token');
-    var decodedToken = parseJwt(idToken);
-    var email = decodedToken.email;
-    var name = decodedToken.name;
-
+    var firstName = document.getElementById('firstName').value;
+    var lastName = document.getElementById('lastName').value;
+    var email = document.getElementById('email').value;
     var houseNo = document.getElementById('houseNo').value;
     var street = document.getElementById('street').value;
     var society = document.getElementById('society').value;
@@ -84,7 +101,10 @@ function submitTechRegistration(event) {
     var contactNo = document.getElementById('contactNo').value;
     var skill = document.getElementById('skill').value;
     var role = 'Technician';
+
     var requestData = {
+        firstName: firstName,
+        lastName: lastName,
         houseNo: houseNo,
         street: street,
         society: society,
@@ -93,7 +113,6 @@ function submitTechRegistration(event) {
         pincode: pincode,
         contact: contactNo,
         email: email,
-        name: name,
         role: role,
         skill: skill
     };
@@ -101,28 +120,34 @@ function submitTechRegistration(event) {
     fetch('https://totalcarefix.projects.bbdgrad.com/api/register', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${idToken}`
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(requestData)
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to register user');
-            }
-            return response.json();
-        })
-        .then(data => {
-            showPopup('User registered successfully:', data);
-            loadLoginTech();
-        })
-        .catch(error => {
-            console.error('Error registering user:', error);
-        });
-}
+    .then(response => {
+        if (!response.ok) {
+            const errorData = response.json();
+            throw new Error(`Failed to register user: ${errorData.message}`);
 
-function loadCancelRegisterTech() {
-    const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
-    history.replaceState(null, null, url);
-    loadLanding();
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('User registered successfully:', data);
+        console.log(data.state)
+        if(!data.state){
+            loadLoginUser();
+            showPopup('User registered successfully:', data);
+        }
+        else{
+            showPopup('already registered as:' + data.role );
+            // showMyPopup("error",data.role,"user already exist",)
+             loadRegisterFormTech();
+           
+        }
+    })
+    .catch(error => {
+        console.error('Error registering user:', error);
+        showPopup('Error registering user:', error.message);
+    });
 }

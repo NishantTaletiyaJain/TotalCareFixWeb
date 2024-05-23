@@ -1,10 +1,5 @@
 function techHome() {
-    const idToken = parseTokenFromUrl();
-    if (idToken) {
-        if (sessionStorage.getItem('tokentech') == null) {
-            fetchUserInfoTech(idToken);
-        }
-    }
+    
     var mainSection = document.getElementById('content');
     mainSection.innerHTML = '';
 
@@ -24,7 +19,7 @@ function techHome() {
     `;
     mainSection.innerHTML = homeContent;
 
-    // Add some CSS styles to make the containers and row look nice
+    
     var style = document.createElement('style');
     style.innerHTML = `
         .row {
@@ -58,13 +53,13 @@ function techHome() {
     `;
     document.head.appendChild(style);
 
-    const email = sessionStorage.getItem('emailtech');
+    const email = sessionStorage.getItem('email');
 
-    // Fetch the rating
+    
     fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/rating/${email}`, {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
     })
     .then(response => response.json())
@@ -76,11 +71,11 @@ function techHome() {
         document.getElementById('rating').innerText = 'Error';
     });
 
-    // Fetch the number of completed tasks
+    
     fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/taskcompleted/${email}`, {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('tokentech')}`
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
     })
     .then(response => response.json())
