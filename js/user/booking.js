@@ -17,11 +17,11 @@ function loadBooking() {
 </section>`;
     mainSection.innerHTML = bookingContent;
 
-    // Set the minimum date to today
+    
     const today = new Date().toISOString().split('T')[0];
     document.querySelector('.serviceDate').setAttribute('min', today);
 
-    // Set the minimum time to the current time if the selected date is today
+    
     const serviceDateInput = document.querySelector('.serviceDate');
     const expectedTimeInput = document.querySelector('.expectedTime');
 
@@ -29,7 +29,7 @@ function loadBooking() {
         const selectedDate = serviceDateInput.value;
         if (selectedDate === today) {
             const now = new Date();
-            const currentTime = now.toTimeString().split(' ')[0].substring(0, 5); // format as HH:MM
+            const currentTime = now.toTimeString().split(' ')[0].substring(0, 5); 
             expectedTimeInput.setAttribute('min', currentTime);
         } else {
             expectedTimeInput.removeAttribute('min');
@@ -74,7 +74,7 @@ const makeBooking = (event) => {
         const currentDate = new Date();
         const selectedDate = new Date(serviceDate);
         
-        // Ensure the selected date is today before checking the time
+        
         if (selectedDate.toISOString().split('T')[0] === currentDate.toISOString().split('T')[0] && expectedTime <= currentDate.toTimeString().split(' ')[0].substring(0, 5)) {
             showPopup('Please select a valid future expected time.');
             return;

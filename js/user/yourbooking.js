@@ -110,8 +110,8 @@ function displayBookings(bookings) {
     }
 
     if (!bookings || bookings.length === 0) {
-        var messageTag = document.createElement('p');
-        messageTag.textContent = '<h2>No bookings available</h2>';
+        var messageTag = document.createElement('h1');
+        messageTag.textContent = 'No bookings available';
         bookingContainer.appendChild(messageTag);
     } else {
     bookings.forEach(booking => {

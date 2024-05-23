@@ -34,7 +34,7 @@ function submitRegistration() {
 
 function registerFormUser() {
     var mainContent = document.getElementById('content');
-    mainContent.innerHTML = ''; // Clear any existing content
+    mainContent.innerHTML = ''; 
 
     fetch('http://localhost:8080/cities/getAllUserCities')
         .then(response => response.json())
@@ -111,11 +111,11 @@ function registerFormUser() {
 function submitUserRegistration(event) {
     event.preventDefault();
 
-    // var urlParams = new URLSearchParams(window.location.hash.substring(1));
-    // var idToken = urlParams.get('id_token');
-    // var decodedToken = parseJwt(idToken);
-    // var email = decodedToken.email;
-    // var name = decodedToken.name;
+    
+    
+    
+    
+    
 
 
 
@@ -150,7 +150,7 @@ function submitUserRegistration(event) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-           // 'Authorization': `Bearer ${idToken}`
+           
         },
         body: JSON.stringify(requestData)
     })
@@ -173,8 +173,8 @@ function submitUserRegistration(event) {
                 showPopup('already registered as:' + data.role );
                 loadRegisterFormTech();   
             }
-            // showPopup('User registered successfully:', data);
-            // loadLoginUser();
+            
+            
         })
         .catch(error => {
             console.error('Error registering user:', error);
@@ -182,7 +182,7 @@ function submitUserRegistration(event) {
 }
 
 function loadCancelRegister() {
-    const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
+    const url = window.location.href.split('#')[0]; 
     history.replaceState(null, null, url);
     loadUserDashboard();
 }

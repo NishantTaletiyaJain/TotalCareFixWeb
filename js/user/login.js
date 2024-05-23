@@ -6,13 +6,13 @@ const loadLogin = () => {
     window.location.href = authUrl;
 }
 
-// Function to parse the ID token from the URL
+
 const parseTokenFromUrl = () => {
     const urlParams = new URLSearchParams(window.location.hash.substring(1));
     return urlParams.get('id_token');
 }
 
-// Function to fetch user info using the ID token
+
 const fetchUserInfo = (idToken) => {
     const decodedToken = parseJwt(idToken);
     const email = decodedToken.email;
@@ -36,13 +36,13 @@ const fetchUserInfo = (idToken) => {
         })
         .then(data => {
             if (data.email == null) {
-                const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
+                const url = window.location.href.split('#')[0]; 
                 history.replaceState(null, null, url);
                 showPopup('Please register first.')
                 loadUserDashboard()
             } else if (data.role == 'Technician') {
-                // const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
-                // history.replaceState(null, null, url);
+                
+                
                 sessionStorage.setItem('email', data.email);
                 sessionStorage.setItem('name', name);
                 sessionStorage.setItem('token', idToken);
@@ -61,7 +61,7 @@ const fetchUserInfo = (idToken) => {
         });
 }
 
-// Function to parse JWT token
+
 const parseJwt = (token) => {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

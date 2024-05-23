@@ -1,7 +1,7 @@
 function showMyBooking() {
     const loader = document.getElementById('fullScreenLoader');
     loader.style.display = 'block';
-    const email = sessionStorage.getItem('email'); // Use the correct email or fetch from sessionStorage if needed
+    const email = sessionStorage.getItem('email'); 
     fetch(`http://localhost:8080/tech/myorder/${email}`, {
         method: 'GET',
         headers: {
@@ -27,7 +27,7 @@ function showMyBooking() {
         })
         .catch(error => {
             console.error('Error fetching bookings:', error);
-            // Display error message or handle error as needed
+            
         });
 }
 function displayMyBookingList(bookings) {
@@ -95,7 +95,7 @@ function cancelBookingTech(bookingId) {
         })
         .catch(error => {
             console.error('Error canceling booking:', error);
-            // Display error message or handle error as needed
+            
         });
 }
 

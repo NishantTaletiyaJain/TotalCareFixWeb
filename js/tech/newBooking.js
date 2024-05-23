@@ -1,5 +1,5 @@
 
-// Function to display the booking list
+
 function displayBookingList(bookings) {
     console.log('coming inside the new booking');
     const newBookingContent = document.getElementById("content");
@@ -45,11 +45,11 @@ function displayBookingList(bookings) {
     newBookingContent.appendChild(bookingContainer);
 }
 
-// Function to fetch bookings from the API and display
+
 function showNewBooking() {
     const loader = document.getElementById('fullScreenLoader');
     loader.style.display = 'block';
-    const email = sessionStorage.getItem('email'); // Use the correct email or fetch from sessionStorage if needed
+    const email = sessionStorage.getItem('email'); 
     fetch(`http://localhost:8080/tech/serviceorder/${email}`, {
         method: 'GET',
         headers: {
@@ -70,11 +70,11 @@ function showNewBooking() {
         })
         .catch(error => {
             console.error('Error fetching bookings:', error);
-            // Display error message or handle error as needed
+            
         });
 }
 
-// Function to confirm a booking
+
 function confirmBooking(id) {
     const email = sessionStorage.getItem('email');
 
@@ -95,7 +95,7 @@ function confirmBooking(id) {
         })
         .catch(error => {
             console.error('Error confirming booking:', error);
-            // Display error message or handle error as needed
+            
         });
 }
 

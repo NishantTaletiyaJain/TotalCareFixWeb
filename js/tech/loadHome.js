@@ -19,7 +19,7 @@ function techHome() {
     `;
     mainSection.innerHTML = homeContent;
 
-    // Add some CSS styles to make the containers and row look nice
+    
     var style = document.createElement('style');
     style.innerHTML = `
         .row {
@@ -55,7 +55,7 @@ function techHome() {
 
     const email = sessionStorage.getItem('email');
 
-    // Fetch the rating
+    
     fetch(`http://localhost:8080/tech/rating/${email}`, {
         method: 'GET',
         headers: {
@@ -71,7 +71,7 @@ function techHome() {
         document.getElementById('rating').innerText = 'Error';
     });
 
-    // Fetch the number of completed tasks
+    
     fetch(`http://localhost:8080/tech/taskcompleted/${email}`, {
         method: 'GET',
         headers: {

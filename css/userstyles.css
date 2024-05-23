@@ -136,7 +136,7 @@ ul li a {
 #booking form button[type="submit"]:hover {
     background-color: #45a049;
     margin-bottom: 10px;
-    /* Add margin bottom */
+    
 }
 
 footer {
@@ -220,7 +220,7 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* for cancel button in resgister form */
+
 
 button[type="button"] {
     width: 100%;
@@ -237,9 +237,9 @@ button[type="button"]:hover {
 }
 
 
-/* editpopupcss */
 
-/* Overlay styles */
+
+
 #popupOverlay {
     position: fixed;
     top: 0;
@@ -253,7 +253,7 @@ button[type="button"]:hover {
     z-index: 1000;
 }
 
-/* Container styles */
+
 #popupContainer {
     background-color: #fff;
     padding: 20px;
@@ -264,7 +264,7 @@ button[type="button"]:hover {
     width: 100%;
 }
 
-/* Form styles */
+
 #editBookingForm {
     display: flex;
     flex-direction: column;
@@ -307,7 +307,7 @@ button[type="button"]:hover {
     background-color: #0056b3;
 }
 
-/* Close popup when clicking outside the container */
+
 #popupOverlay {
     display: flex;
     align-items: center;
@@ -316,9 +316,9 @@ button[type="button"]:hover {
 
 
 
-/* feedback popup */
 
-/* Overlay styles */
+
+
 #popupOverlay {
     position: fixed;
     top: 0;
@@ -332,7 +332,7 @@ button[type="button"]:hover {
     z-index: 1000;
 }
 
-/* Container styles */
+
 #popupContainer {
     background-color: #fff;
     padding: 20px;
@@ -343,7 +343,7 @@ button[type="button"]:hover {
     width: 100%;
 }
 
-/* Form styles */
+
 #feedbackForm {
     display: flex;
     flex-direction: column;
@@ -383,28 +383,28 @@ button[type="button"]:hover {
 }
 
 
-/* loader  */
 
 
 
 
 
-/* Full-screen loader styles */
+
+
 #fullScreenLoader {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 9999; /* Sit on top */
+    display: none; 
+    position: fixed; 
+    z-index: 9999; 
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Disable scroll */
-    background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+    overflow: hidden; 
+    background-color: rgba(0, 0, 0, 0.5); 
 }
 
 .spinner {
-    border: 1.5em solid #f3f3f3; /* Light grey */
-    border-top: 1.5em solid #3498db; /* Blue */
+    border: 1.5em solid #f3f3f3; 
+    border-top: 1.5em solid #3498db; 
     border-radius: 50%;
     width: 10em;
     height: 10em;
@@ -422,7 +422,7 @@ button[type="button"]:hover {
     100% { transform: rotate(360deg); }
 }
 
-/* Confirm popup */
+
 
 .popup-overlay {
     position: fixed;
@@ -471,22 +471,11 @@ button[type="button"]:hover {
     color: white;
 }
 
-<<<<<<< HEAD
-
-
-
-.booking-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 20px; /* Adjust size as needed */
-    height: 20px; /* Adjust size as needed */
-=======
 .no-button:hover {
     background-color: darkred;
 }
 
-/* Popup fade-in animation */
+
 @keyframes popupFadeIn {
     from {
         opacity: 0;
@@ -496,5 +485,4 @@ button[type="button"]:hover {
         opacity: 1;
         transform: scale(1);
     }
->>>>>>> 1ad458f0b346d41e7ca8188a06671b28f39408b6
 }
