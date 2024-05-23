@@ -4,7 +4,7 @@ const fetchUserInfoTech = (idToken) => {
     const email = decodedToken.email;
     const name = decodedToken.name;
 
-    const url = 'http://localhost:8080/verify';
+    const url = 'https://totalcarefix.projects.bbdgrad.com/api/verify';
 
     const requestOptions = {
         method: 'GET',

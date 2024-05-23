@@ -2,7 +2,7 @@ function showMyBooking() {
     const loader = document.getElementById('fullScreenLoader');
     loader.style.display = 'block';
     const email = sessionStorage.getItem('email'); 
-    fetch(`http://localhost:8080/tech/myorder/${email}`, {
+    fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/myorder/${email}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -78,7 +78,7 @@ function displayMyBookingList(bookings) {
 }
 
 function cancelBookingTech(bookingId) {
-    fetch(`http://localhost:8080/tech/cancel/${bookingId}`, {
+    fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/cancel/${bookingId}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`

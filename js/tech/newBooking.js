@@ -50,7 +50,7 @@ function showNewBooking() {
     const loader = document.getElementById('fullScreenLoader');
     loader.style.display = 'block';
     const email = sessionStorage.getItem('email'); 
-    fetch(`http://localhost:8080/tech/serviceorder/${email}`, {
+    fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/serviceorder/${email}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -78,7 +78,7 @@ function showNewBooking() {
 function confirmBooking(id) {
     const email = sessionStorage.getItem('email');
 
-    fetch(`http://localhost:8080/tech/confirm/${id}/${email}`, {
+    fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/confirm/${id}/${email}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`

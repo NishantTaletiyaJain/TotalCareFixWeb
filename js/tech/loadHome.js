@@ -56,7 +56,7 @@ function techHome() {
     const email = sessionStorage.getItem('email');
 
     
-    fetch(`http://localhost:8080/tech/rating/${email}`, {
+    fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/rating/${email}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -72,7 +72,7 @@ function techHome() {
     });
 
     
-    fetch(`http://localhost:8080/tech/taskcompleted/${email}`, {
+    fetch(`https://totalcarefix.projects.bbdgrad.com/api/tech/taskcompleted/${email}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${sessionStorage.getItem('token')}`

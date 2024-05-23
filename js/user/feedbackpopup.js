@@ -130,7 +130,7 @@ function submitFeedback(bookingId) {
         message: message
     };
 
-    fetch('http://localhost:8080/feedbacks', {
+    fetch('https://totalcarefix.projects.bbdgrad.com/api/feedbacks', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

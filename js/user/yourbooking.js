@@ -1,6 +1,6 @@
 function cancelBooking(bookingId) {
     const token = sessionStorage.getItem('token');
-    const url = `http://localhost:8080/cancel/${bookingId}`;
+    const url = `https://totalcarefix.projects.bbdgrad.com/api/cancel/${bookingId}`;
 
     fetch(url, {
         method: 'POST',
@@ -68,7 +68,7 @@ function loadYourBooking() {
 function fetchBookings(email) {
     const loader = document.getElementById('fullScreenLoader');
     loader.style.display = 'block';
-    const url = `http://localhost:8080/showbooking/${email}`;
+    const url = `https://totalcarefix.projects.bbdgrad.com/api/showbooking/${email}`;
 
     fetch(url, {
         method: 'GET',
@@ -237,7 +237,7 @@ function applyFilter(event) {
 
 function completeBooking(bookingId) {
     const token = sessionStorage.getItem('token');
-    const url = `http://localhost:8080/bookingcompleted/${bookingId}`;
+    const url = `https://totalcarefix.projects.bbdgrad.com/api/bookingcompleted/${bookingId}`;
 
     fetch(url, {
         method: 'GET',

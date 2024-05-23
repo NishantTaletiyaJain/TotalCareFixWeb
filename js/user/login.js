@@ -1,6 +1,6 @@
 const loadLogin = () => {
     const clientId = '1004581828869-dgt1j8h4qe36f4lg72ci5rjhgsm8400m.apps.googleusercontent.com';
-    const redirectUri = 'http://localhost:5500/index.html';
+    const redirectUri = 'https://totalcarefix.projects.bbdgrad.com/web/';
     const scope = 'email profile openid';
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=id_token&scope=${scope}&nonce=123`;
     window.location.href = authUrl;
@@ -18,7 +18,7 @@ const fetchUserInfo = (idToken) => {
     const email = decodedToken.email;
     const name = decodedToken.name;
 
-    const url = 'http://localhost:8080/verify';
+    const url = 'https://totalcarefix.projects.bbdgrad.com/api/verify';
 
     const requestOptions = {
         method: 'GET',

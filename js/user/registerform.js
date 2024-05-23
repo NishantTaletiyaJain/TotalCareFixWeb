@@ -36,7 +36,7 @@ function registerFormUser() {
     var mainContent = document.getElementById('content');
     mainContent.innerHTML = ''; 
 
-    fetch('http://localhost:8080/cities/getAllUserCities')
+    fetch('https://totalcarefix.projects.bbdgrad.com/api/cities/getAllUserCities')
         .then(response => response.json())
         .then(data => {
             var cityDropdownOptions = '';
@@ -146,7 +146,7 @@ function submitUserRegistration(event) {
         skill: skill
     };
 
-    fetch('http://localhost:8080/register', {
+    fetch('https://totalcarefix.projects.bbdgrad.com/api/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

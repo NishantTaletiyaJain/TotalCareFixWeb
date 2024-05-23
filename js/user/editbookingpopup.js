@@ -151,7 +151,7 @@ function updateBooking(bookingId) {
         message: problemDescription
     };
 
-    fetch(`http://localhost:8080/editbooking/${bookingId}`, {
+    fetch(`https://totalcarefix.projects.bbdgrad.com/api/editbooking/${bookingId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
