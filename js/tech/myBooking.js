@@ -57,7 +57,10 @@ function displayMyBookingList(bookings) {
             const cancelButton = document.createElement("button");
             cancelButton.classList.add("cancel-button1");
             cancelButton.textContent = "Cancel";
-            cancelButton.addEventListener("click", () => cancelBookingTech(booking.bookingId));
+
+            cancelButton.addEventListener("click", () => showConfirmationPopup('Are you sure you want to cancel this booking?',function () {
+                cancelBookingTech(booking.bookingId);
+            },booking.bookingId,'tech'));
 
             bookingItem.appendChild(bookingBookingId);
             bookingItem.appendChild(bookingAddress);

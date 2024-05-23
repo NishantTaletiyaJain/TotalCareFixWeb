@@ -16,7 +16,7 @@ function createConfirmationPopup() {
 // Ensure the popup is created when the page loads
 createConfirmationPopup();
 
-function showConfirmationPopup(message, onConfirm, id) {
+function showConfirmationPopup(message, onConfirm, id, usertype) {
     var popup = document.getElementById('confirmationPopup');
     var messageElement = document.getElementById('confirmationMessage');
     var confirmButton = document.getElementById('confirmYes');
@@ -24,15 +24,22 @@ function showConfirmationPopup(message, onConfirm, id) {
 
     messageElement.textContent = message;
 
-    confirmButton.onclick = function() {
+    confirmButton.onclick = function () {
         if (typeof onConfirm === 'function') {
-            console.log(id);
-            cancelBooking(id);
+
+            if (usertype === 'tech') {
+                cancelBookingTech(id);
+            }
+            else {
+
+                console.log(id);
+                cancelBooking(id);
+            }
         }
         popup.style.display = 'none';
     };
 
-    cancelButton.onclick = function() {
+    cancelButton.onclick = function () {
         if (typeof onCancel === 'function') {
             console.log('no');
             onCancel();
