@@ -1,10 +1,10 @@
-// Function to fetch user info using the ID token
+
 const fetchUserInfoTech = (idToken) => {
     const decodedToken = parseJwt(idToken);
     const email = decodedToken.email;
     const name = decodedToken.name;
 
-    const url = 'http://localhost:8080/verify';
+    const url = 'https://totalcarefix.projects.bbdgrad.com/api/verify';
 
     const requestOptions = {
         method: 'GET',
@@ -26,7 +26,7 @@ const fetchUserInfoTech = (idToken) => {
                 loadRegisterFormTech();
             } else if (data.role == 'User') {
                 showPopup("You are already registered as a user.");
-                const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
+                const url = window.location.href.split('#')[0]; 
                 history.replaceState(null, null, url);
                 loadLanding();
             } else {
@@ -35,7 +35,7 @@ const fetchUserInfoTech = (idToken) => {
                 sessionStorage.setItem('email', data.email);
                 sessionStorage.setItem('name', name);
                 sessionStorage.setItem('token', idToken);
-                const url = window.location.href.split('#')[0]; // Remove the hash part of the URL
+                const url = window.location.href.split('#')[0]; 
                 history.replaceState(null, null, url);
                 techDashBoard();
             }
@@ -52,14 +52,14 @@ function loadLoginTech() {
 
 
 function logOutTech() {
-    sessionStorage.clear();  // Clear all session storage items
-    window.location.hash = '';  // Clear the URL hash to remove any lingering OAuth tokens
+    sessionStorage.clear();  
+    window.location.hash = '';  
 
-    // Clear header and navbar contents
+    
     document.getElementById('head').innerHTML = '';
     document.getElementById('navbar').innerHTML = '';
 
-    // Remove header styles if any
+    
     var headerStyle = document.getElementById('headerStyle');
     if (headerStyle) {
         headerStyle.remove();

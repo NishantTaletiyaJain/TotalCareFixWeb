@@ -1,5 +1,5 @@
 function editShowPopup(message, bookingId) {
-    // Create the popup overlay
+    
     var popupOverlay = document.createElement('div');
     popupOverlay.id = 'popupOverlay';
     popupOverlay.style.position = 'fixed';
@@ -13,7 +13,7 @@ function editShowPopup(message, bookingId) {
     popupOverlay.style.justifyContent = 'center';
     popupOverlay.style.zIndex = '1000';
 
-    // Create the popup container
+    
     var popupContainer = document.createElement('div');
     popupContainer.id = 'popupContainer';
     popupContainer.style.backgroundColor = '#fff';
@@ -22,16 +22,16 @@ function editShowPopup(message, bookingId) {
     popupContainer.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
     popupContainer.style.textAlign = 'center';
 
-    // Create the popup message
+    
     var popupMessage = document.createElement('p');
     popupMessage.textContent = message;
     popupMessage.style.marginBottom = '20px';
 
-    // Create the form
+    
     var form = document.createElement('form');
     form.id = 'editBookingForm';
 
-    // Create the date input
+    
     var dateLabel = document.createElement('label');
     dateLabel.setAttribute('for', 'serviceDate');
     dateLabel.textContent = 'Service Date:';
@@ -44,7 +44,7 @@ function editShowPopup(message, bookingId) {
     dateInput.name = 'serviceDate';
     form.appendChild(dateInput);
 
-    // Create the time input
+    
     var timeLabel = document.createElement('label');
     timeLabel.setAttribute('for', 'expectedTime');
     timeLabel.textContent = 'Expected Time:';
@@ -57,7 +57,7 @@ function editShowPopup(message, bookingId) {
     timeInput.name = 'expectedTime';
     form.appendChild(timeInput);
 
-    // Create the message textarea
+    
     var messageLabel = document.createElement('label');
     messageLabel.setAttribute('for', 'problemDescription');
     messageLabel.textContent = 'Problem Description:';
@@ -69,7 +69,7 @@ function editShowPopup(message, bookingId) {
     messageTextarea.name = 'problemDescription';
     form.appendChild(messageTextarea);
 
-    // Create the update button
+    
     var updateButton = document.createElement('button');
     updateButton.type = 'button';
     updateButton.textContent = 'Update Booking';
@@ -78,20 +78,36 @@ function editShowPopup(message, bookingId) {
     };
     form.appendChild(updateButton);
 
-    // Append the form to the container
+    
     popupContainer.appendChild(popupMessage);
     popupContainer.appendChild(form);
     popupOverlay.appendChild(popupContainer);
 
-    // Append the overlay to the body
+    
     document.body.appendChild(popupOverlay);
 
-    // Close the popup when clicking outside the container
+    
     popupOverlay.onclick = function (event) {
         if (event.target === popupOverlay) {
             document.body.removeChild(popupOverlay);
         }
     };
+
+    
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+
+    
+    dateInput.addEventListener('input', () => {
+        const selectedDate = dateInput.value;
+        if (selectedDate === today) {
+            const now = new Date();
+            const currentTime = now.toTimeString().split(' ')[0].substring(0, 5); 
+            timeInput.setAttribute('min', currentTime);
+        } else {
+            timeInput.removeAttribute('min');
+        }
+    });
 }
 
 function updateBooking(bookingId) {
@@ -104,17 +120,21 @@ function updateBooking(bookingId) {
     const today = new Date().toISOString().split('T')[0];
     if (serviceDate === '' || serviceDate < today) {
         showPopup('Please select a valid future service date.');
+        loader.style.display = 'none';
         return;
     }
 
-    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-    if (expectedTime === '' || expectedTime < currentTime) {
+    const currentDate = new Date();
+    const selectedDate = new Date(serviceDate);
+    if (selectedDate.toISOString().split('T')[0] === currentDate.toISOString().split('T')[0] && expectedTime <= currentDate.toTimeString().split(' ')[0].substring(0, 5)) {
         showPopup('Please select a valid future expected time.');
+        loader.style.display = 'none';
         return;
     }
 
     if (problemDescription.trim() === '') {
         showPopup('Please enter a problem description.');
+        loader.style.display = 'none';
         return;
     }
 
@@ -131,7 +151,7 @@ function updateBooking(bookingId) {
         message: problemDescription
     };
 
-    fetch(`http://localhost:8080/editbooking/${bookingId}`, {
+    fetch(`https://totalcarefix.projects.bbdgrad.com/api/editbooking/${bookingId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

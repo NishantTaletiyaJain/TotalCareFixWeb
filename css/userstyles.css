@@ -1,3 +1,4 @@
+
 * {
     padding: 0;
     margin: 0;
@@ -135,7 +136,7 @@ ul li a {
 #booking form button[type="submit"]:hover {
     background-color: #45a049;
     margin-bottom: 10px;
-    /* Add margin bottom */
+    
 }
 
 footer {
@@ -219,9 +220,26 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* editpopupcss */
 
-/* Overlay styles */
+
+button[type="button"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffae00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="button"]:hover {
+    background-color: #b30009;
+}
+
+
+
+
+
 #popupOverlay {
     position: fixed;
     top: 0;
@@ -235,7 +253,7 @@ button[type="submit"]:hover {
     z-index: 1000;
 }
 
-/* Container styles */
+
 #popupContainer {
     background-color: #fff;
     padding: 20px;
@@ -246,7 +264,7 @@ button[type="submit"]:hover {
     width: 100%;
 }
 
-/* Form styles */
+
 #editBookingForm {
     display: flex;
     flex-direction: column;
@@ -289,7 +307,7 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* Close popup when clicking outside the container */
+
 #popupOverlay {
     display: flex;
     align-items: center;
@@ -298,9 +316,9 @@ button[type="submit"]:hover {
 
 
 
-/* feedback popup */
 
-/* Overlay styles */
+
+
 #popupOverlay {
     position: fixed;
     top: 0;
@@ -314,7 +332,7 @@ button[type="submit"]:hover {
     z-index: 1000;
 }
 
-/* Container styles */
+
 #popupContainer {
     background-color: #fff;
     padding: 20px;
@@ -325,7 +343,7 @@ button[type="submit"]:hover {
     width: 100%;
 }
 
-/* Form styles */
+
 #feedbackForm {
     display: flex;
     flex-direction: column;
@@ -365,28 +383,28 @@ button[type="submit"]:hover {
 }
 
 
-/* loader  */
 
 
 
 
 
-/* Full-screen loader styles */
+
+
 #fullScreenLoader {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 9999; /* Sit on top */
+    display: none; 
+    position: fixed; 
+    z-index: 9999; 
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Disable scroll */
-    background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+    overflow: hidden; 
+    background-color: rgba(0, 0, 0, 0.5); 
 }
 
 .spinner {
-    border: 1.5em solid #f3f3f3; /* Light grey */
-    border-top: 1.5em solid #3498db; /* Blue */
+    border: 1.5em solid #f3f3f3; 
+    border-top: 1.5em solid #3498db; 
     border-radius: 50%;
     width: 10em;
     height: 10em;
@@ -405,3 +423,66 @@ button[type="submit"]:hover {
 }
 
 
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    animation: popupFadeIn 0.3s ease-in-out;
+}
+
+.popup-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.yes-button {
+    background-color: green;
+    color: white;
+}
+
+.yes-button:hover {
+    background-color: darkgreen;
+}
+
+.no-button {
+    background-color: red;
+    color: white;
+}
+
+.no-button:hover {
+    background-color: darkred;
+}
+
+
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

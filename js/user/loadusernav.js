@@ -7,13 +7,13 @@ function loadUserNav() {
 
     const menuItems = [];
     if (sessionStorage.getItem('email') !== null) {
-        // User is logged in
+        
         menuItems.push({ text: 'Home', onclick: 'loadHome()' });
-        menuItems.push({ text: 'Booking', onclick: 'loadBooking()' });
-        menuItems.push({ text: 'SeeBooking', onclick: 'loadYourBooking()' });
+        menuItems.push({ text: 'Make Request', onclick: 'loadBooking()' });
+        menuItems.push({ text: 'Bookings', onclick: 'loadYourBooking()' });
         menuItems.push({ text: 'Logout', onclick: 'logout()' });
     } else {
-        // User is not logged in
+        
         menuItems.push({ text: 'Home', onclick: 'loadHome()' });
         menuItems.push({ text: 'Login', onclick: 'loadLoginUser()' });
         menuItems.push({ text: 'Register', onclick: 'loadRegisterform()' });
